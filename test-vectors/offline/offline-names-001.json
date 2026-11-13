@@ -1,0 +1,37 @@
+{
+  "id": "offline-names-001",
+  "kind": "offline",
+  "title": "File and archive names of the offline export",
+  "source": "D-01 §3.7.6 (BR-O11)",
+  "status": "derived",
+  "rules": [
+    "BR-O11"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "invoices": [
+      {
+        "issueDateTime": "2026-11-13T10:15:30+01:00",
+        "tcr": "cc123cc123",
+        "iic": "0123456789ABCDEF0123456789ABCDEF"
+      },
+      {
+        "issueDateTime": "2026-11-13T23:59:59+01:00",
+        "tcr": "cc123cc123",
+        "iic": "FEDCBA9876543210FEDCBA9876543210"
+      }
+    ],
+    "exportedAt": "2026-11-14T08:00:00+01:00",
+    "tcr": "cc123cc123"
+  },
+  "expected": {
+    "files": [
+      "20261113101530_cc123cc123_0123456789ABCDEF0123456789ABCDEF_request.xml",
+      "20261113235959_cc123cc123_FEDCBA9876543210FEDCBA9876543210_request.xml"
+    ],
+    "zip": "20261114080000_cc123cc123_request.zip",
+    "responseZip": "20261114080000_cc123cc123_response.zip",
+    "maxZipBytes": 15728640
+  }
+}

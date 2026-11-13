@@ -1,0 +1,66 @@
+{
+  "id": "xml-advance-006",
+  "kind": "xml",
+  "title": "Advance invoice at receipt of payment (strict mode)",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-K9"
+  ],
+  "openQuestions": [
+    "Q-24"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "ADVANCE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [
+        {
+          "name": "Pre-order item",
+          "unit": "kom",
+          "quantity": "1",
+          "unitPrice": "121.00",
+          "vatRate": "21",
+          "priceIncludesVat": true
+        }
+      ],
+      "payments": [
+        {
+          "method": "CARD"
+        }
+      ]
+    },
+    "issue": {
+      "ordinal": 6,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "1b4e28ba-2fa1-41d2-883f-0016d3cca427",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"1b4e28ba-2fa1-41d2-883f-0016d3cca427\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/6/2026/cc123cc123\" InvOrdNum=\"6\" InvType=\"ADVANCE\" IsIssuerInVAT=\"true\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TotPrice=\"121.00\" TotPriceWoVAT=\"100.00\" TotVATAmt=\"21.00\" TypeOfInv=\"CASH\"><PayMethods><PayMethod Amt=\"121.00\" Type=\"CARD\"></PayMethod></PayMethods><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Items><I N=\"Pre-order item\" PA=\"121.0000\" PB=\"100.0000\" Q=\"1\" U=\"kom\" UPA=\"121.0000\" UPB=\"100.0000\" VA=\"21.0000\" VR=\"21.00\"></I></Items><SameTaxes><SameTax NumOfItems=\"1\" PriceBefVAT=\"100.00\" VATAmt=\"21.00\" VATRate=\"21.00\"></SameTax></SameTaxes></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "a8e382ba2bf21f9602b6fed2e1a50ac068ed9af6d38cbe9e72ccb4d35c4f8633",
+    "byteLength": 1562,
+    "invNum": "bb123bb123/6/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|6|bb123bb123|cc123cc123|ss123ss123|121.00",
+    "typeOfInv": "CASH"
+  }
+}

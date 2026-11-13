@@ -1,0 +1,33 @@
+{
+  "id": "xml-tcr-register-014",
+  "kind": "xml",
+  "title": "Register a regular TCR",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-R1",
+    "BR-R2"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "tcr",
+    "registration": {
+      "issuerTin": "12345678",
+      "businessUnit": "bb123bb123",
+      "internalId": "1",
+      "software": "ss123ss123",
+      "maintainer": "mm123mm123",
+      "validFrom": "2026-11-14",
+      "type": "REGULAR"
+    },
+    "issue": {
+      "uuid": "c56a4180-65aa-42ec-a945-5fd21dec0538",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterTCRRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"c56a4180-65aa-42ec-a945-5fd21dec0538\"></Header><TCR BusinUnitCode=\"bb123bb123\" IssuerTIN=\"12345678\" MaintainerCode=\"mm123mm123\" SoftCode=\"ss123ss123\" TCRIntID=\"1\" Type=\"REGULAR\" ValidFrom=\"2026-11-14\"></TCR></RegisterTCRRequest>",
+    "canonicalSha256": "e214f14109232c1072906bcf2de116b1613df35e46541e9399a6a019450854ca",
+    "byteLength": 369
+  }
+}

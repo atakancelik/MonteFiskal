@@ -1,0 +1,67 @@
+{
+  "id": "xml-voucher-019",
+  "kind": "xml",
+  "title": "Sale of a single-purpose voucher on an advance invoice and payment with it",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-K19",
+    "BR-K9"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "ADVANCE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [
+        {
+          "name": "Gift voucher",
+          "unit": "kom",
+          "quantity": "1",
+          "unitPrice": "50.00",
+          "vatRate": "21",
+          "priceIncludesVat": true,
+          "voucherExpiry": "2027-11-13",
+          "voucherSerial": "1-2026-00000001"
+        }
+      ],
+      "payments": [
+        {
+          "method": "CARD"
+        }
+      ]
+    },
+    "issue": {
+      "ordinal": 15,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "16fd2706-8baf-433b-82eb-8c7fada847da",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"16fd2706-8baf-433b-82eb-8c7fada847da\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/15/2026/cc123cc123\" InvOrdNum=\"15\" InvType=\"ADVANCE\" IsIssuerInVAT=\"true\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TotPrice=\"50.00\" TotPriceWoVAT=\"41.32\" TotVATAmt=\"8.68\" TypeOfInv=\"CASH\"><PayMethods><PayMethod Amt=\"50.00\" Type=\"CARD\"></PayMethod></PayMethods><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Items><I N=\"Gift voucher\" PA=\"50.0000\" PB=\"41.3223\" Q=\"1\" U=\"kom\" UPA=\"50.0000\" UPB=\"41.3223\" VA=\"8.6777\" VD=\"2027-11-13\" VR=\"21.00\" VSN=\"1-2026-00000001\"></I></Items><SameTaxes><SameTax NumOfItems=\"1\" PriceBefVAT=\"41.32\" VATAmt=\"8.68\" VATRate=\"21.00\"></SameTax></SameTaxes></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "17ac68ba4d72781e3d4222486a1c660434d680a2c046069027d3d9dc64459688",
+    "byteLength": 1589,
+    "invNum": "bb123bb123/15/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|15|bb123bb123|cc123cc123|ss123ss123|50.00",
+    "typeOfInv": "CASH"
+  }
+}

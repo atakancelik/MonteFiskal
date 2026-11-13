@@ -1,0 +1,27 @@
+{
+    "name": "montefiskal/woocommerce",
+    "description": "Fiscalization of WooCommerce orders with the Montenegrin EFI service.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "homepage": "https://github.com/atakancelik/MonteFiskal",
+    "support": {
+        "issues": "https://github.com/atakancelik/MonteFiskal/issues",
+        "security": "https://github.com/atakancelik/MonteFiskal/security/policy"
+    },
+    "require": {
+        "php": ">=8.5",
+        "ext-bcmath": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-sodium": "*",
+        "montefiskal/core": "^0.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "MonteFiskal\\WooCommerce\\": "src/"
+        }
+    }
+}

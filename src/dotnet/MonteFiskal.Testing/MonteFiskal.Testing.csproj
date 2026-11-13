@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MonteFiskal.Testing</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <Description>Test helpers for MonteFiskal: a fake EFI endpoint (HttpMessageHandler), a throw-away certificate factory and a loader for the shared test vectors. Never calls the real service.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MonteFiskal/MonteFiskal.csproj" />
+  </ItemGroup>
+</Project>

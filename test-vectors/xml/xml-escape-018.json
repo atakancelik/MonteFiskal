@@ -1,0 +1,66 @@
+{
+  "id": "xml-escape-018",
+  "kind": "xml",
+  "title": "Attribute escaping and non-ASCII text are written unchanged",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-T8"
+  ],
+  "openQuestions": [
+    "Q-07"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "INVOICE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [
+        {
+          "name": "Čaj & \"kafa\" <šoljica> đ ž ć",
+          "unit": "kom",
+          "quantity": "1",
+          "unitPrice": "2.42",
+          "vatRate": "21",
+          "priceIncludesVat": true
+        }
+      ],
+      "payments": [
+        {
+          "method": "CARD"
+        }
+      ]
+    },
+    "issue": {
+      "ordinal": 14,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"7c9e6679-7425-40de-944b-e07fc1f90ae7\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/14/2026/cc123cc123\" InvOrdNum=\"14\" InvType=\"INVOICE\" IsIssuerInVAT=\"true\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TotPrice=\"2.42\" TotPriceWoVAT=\"2.00\" TotVATAmt=\"0.42\" TypeOfInv=\"CASH\"><PayMethods><PayMethod Amt=\"2.42\" Type=\"CARD\"></PayMethod></PayMethods><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Items><I N=\"Čaj &amp; &quot;kafa&quot; &lt;šoljica> đ ž ć\" PA=\"2.4200\" PB=\"2.0000\" Q=\"1\" U=\"kom\" UPA=\"2.4200\" UPB=\"2.0000\" VA=\"0.4200\" VR=\"21.00\"></I></Items><SameTaxes><SameTax NumOfItems=\"1\" PriceBefVAT=\"2.00\" VATAmt=\"0.42\" VATRate=\"21.00\"></SameTax></SameTaxes></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "61b3982ac08ba4f5af12fbb4c5534bd6522cde4615ead5c20df39ed8e62f1ba2",
+    "byteLength": 1581,
+    "invNum": "bb123bb123/14/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|14|bb123bb123|cc123cc123|ss123ss123|2.42",
+    "typeOfInv": "CASH"
+  }
+}

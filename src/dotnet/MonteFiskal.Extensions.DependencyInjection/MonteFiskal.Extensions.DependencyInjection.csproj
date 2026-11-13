@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MonteFiskal.Extensions.DependencyInjection</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <Description>AddMonteFiskal(...) for Microsoft.Extensions.DependencyInjection: options binding, IHttpClientFactory wiring, background resend of the outbox, telemetry names.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MonteFiskal/MonteFiskal.csproj" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Http" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+  </ItemGroup>
+</Project>

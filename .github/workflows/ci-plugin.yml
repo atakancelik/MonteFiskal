@@ -1,0 +1,94 @@
+name: ci-plugin
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  integration:
+    name: WordPress latest, WooCommerce latest, HPOS ${{ matrix.hpos == '1' && 'on' || 'off' }}
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        hpos: ["1", "0"]
+    services:
+      mysql:
+        image: mariadb:11
+        env:
+          MARIADB_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="healthcheck.sh --connect --innodb_initialized" --health-interval=5s --health-timeout=5s --health-retries=20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: "8.5"
+          extensions: bcmath, curl, dom, libxml, mbstring, mysqli, openssl, zip, sodium
+          ini-values: error_reporting=E_ALL & ~E_DEPRECATED
+          coverage: none
+          tools: composer:v2, wp-cli
+      - name: Install development tools
+        run: composer install --no-interaction --no-progress --prefer-dist
+      - name: Install WordPress and WooCommerce
+        env:
+          WP_ROOT: ${{ runner.temp }}/wordpress
+          DB_HOST: 127.0.0.1:3306
+          DB_NAME: wordpress_test
+          DB_USER: root
+          DB_PASS: root
+          MONTEFISKAL_HPOS: ${{ matrix.hpos }}
+        run: plugins/montefiskal-woocommerce/tests/install-wp.sh
+      - name: Plugin integration tests
+        env:
+          WP_ROOT: ${{ runner.temp }}/wordpress
+          MONTEFISKAL_HPOS: ${{ matrix.hpos }}
+        run: vendor/bin/phpunit -c plugins/montefiskal-woocommerce/phpunit.xml.dist
+      - name: WP-CLI commands load
+        run: wp --path=${{ runner.temp }}/wordpress montefiskal status
+      - name: Translations are complete
+        run: python3 -I tools/i18n/po.py check plugins/montefiskal-woocommerce/languages/montefiskal-woocommerce.pot plugins/montefiskal-woocommerce/languages/montefiskal-woocommerce-tr_TR.po
+
+  package:
+    runs-on: ubuntu-24.04
+    needs: integration
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: "8.5"
+          extensions: bcmath, dom, mbstring, openssl, zip, sodium
+          coverage: none
+          tools: wp-cli
+      - name: Build the release zip
+        run: tools/plugin/build-zip.sh "${{ runner.temp }}/dist"
+      - name: Plugin checker
+        run: |
+          wp package install wp-cli/dist-archive-command >/dev/null 2>&1 || true
+          mkdir -p "${{ runner.temp }}/check"
+          cd "${{ runner.temp }}/check"
+          unzip -q "${{ runner.temp }}"/dist/montefiskal-woocommerce-*.zip
+          # Header, licence and text domain checks without a WordPress.org listing.
+          grep -q "License:              GPL-2.0-or-later" montefiskal-woocommerce/montefiskal-woocommerce.php
+          grep -q "Text Domain:          montefiskal-woocommerce" montefiskal-woocommerce/montefiskal-woocommerce.php
+          test -f montefiskal-woocommerce/LICENSE
+          test -f montefiskal-woocommerce/lib/montefiskal/schemas/fs-v1/2026-11/official/eficg-fiscalization-service.xsd
+          ! find montefiskal-woocommerce -name '*.p12' -o -name '*.pfx' -o -name '*.key' | grep .
+          find montefiskal-woocommerce -name '*.php' -print0 | xargs -0 -n1 php -l > /dev/null
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: plugin-zip
+          path: ${{ runner.temp }}/dist
+          if-no-files-found: error

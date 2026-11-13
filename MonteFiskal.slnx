@@ -1,0 +1,21 @@
+<Solution>
+  <Folder Name="/samples/">
+    <Project Path="samples/MonteFiskal.Sandbox/MonteFiskal.Sandbox.csproj" />
+    <Project Path="tools/cross-signature/dotnet/CrossSignature.csproj" />
+  </Folder>
+  <Folder Name="/src/" />
+  <Folder Name="/src/dotnet/">
+    <Project Path="src/dotnet/MonteFiskal.Extensions.DependencyInjection/MonteFiskal.Extensions.DependencyInjection.csproj" />
+    <Project Path="src/dotnet/MonteFiskal.Rendering/MonteFiskal.Rendering.csproj" />
+    <Project Path="src/dotnet/MonteFiskal.Reports/MonteFiskal.Reports.csproj" />
+    <Project Path="src/dotnet/MonteFiskal.Storage.EntityFrameworkCore/MonteFiskal.Storage.EntityFrameworkCore.csproj" />
+    <Project Path="src/dotnet/MonteFiskal.Storage.FileSystem/MonteFiskal.Storage.FileSystem.csproj" />
+    <Project Path="src/dotnet/MonteFiskal.Testing/MonteFiskal.Testing.csproj" />
+    <Project Path="src/dotnet/MonteFiskal/MonteFiskal.csproj" />
+  </Folder>
+  <Folder Name="/tests/" />
+  <Folder Name="/tests/dotnet/">
+    <Project Path="tests/dotnet/MonteFiskal.IntegrationTests/MonteFiskal.IntegrationTests.csproj" />
+    <Project Path="tests/dotnet/MonteFiskal.Tests/MonteFiskal.Tests.csproj" />
+  </Folder>
+</Solution>

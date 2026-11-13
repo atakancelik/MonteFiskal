@@ -1,0 +1,65 @@
+name: Fiscal bug
+description: MonteFiskal produced a wrong fiscal message, number, IKOF, QR code, total or state.
+title: "fiscal-bug: "
+labels: ["fiscal-bug", "priority"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Fiscal bugs are handled first. Redact the request before pasting it: replace the TIN, names, addresses,
+        `IICSignature`, `SignatureValue`, `X509Certificate` and `DigestValue` with `REDACTED`.
+        **Never attach a certificate, private key or password.**
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - .NET library (NuGet MonteFiskal*)
+        - PHP core (montefiskal/core)
+        - WooCommerce plugin
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: MonteFiskal version
+      placeholder: "0.1.0"
+    validations:
+      required: true
+  - type: input
+    id: revision
+    attributes:
+      label: Schema revision
+      description: Shown on the plugin status page or by `FiscalClient` diagnostics, for example `fs-v1@2026-11`.
+  - type: textarea
+    id: scenario
+    attributes:
+      label: Scenario
+      description: What was sold, how it was paid, which invoice kind, test or production.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected and actual behaviour
+    validations:
+      required: true
+  - type: input
+    id: code
+    attributes:
+      label: Error code and fault string
+      placeholder: "11 - Validation of the received XML message failed ..."
+  - type: textarea
+    id: request
+    attributes:
+      label: Redacted request
+      render: xml
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Data protection
+      options:
+        - label: No certificate, key or password is attached.
+          required: true
+        - label: TIN, names, certificate and signature values are redacted.
+          required: true

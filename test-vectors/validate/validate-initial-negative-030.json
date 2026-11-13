@@ -1,0 +1,31 @@
+{
+  "id": "validate-initial-negative-030",
+  "kind": "validate",
+  "title": "Negative INITIAL is refused",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-D2"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "deposit",
+    "deposit": {
+      "issuerTin": "12345678",
+      "tcr": "cc123cc123",
+      "changeDateTime": "2026-11-13T09:15:30Z",
+      "operation": "INITIAL",
+      "amount": "-5.00"
+    }
+  },
+  "expected": {
+    "valid": false,
+    "findings": [
+      {
+        "rule": "BR-D2",
+        "severity": "error"
+      }
+    ]
+  }
+}

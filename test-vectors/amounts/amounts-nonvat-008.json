@@ -1,0 +1,65 @@
+{
+  "id": "amounts-nonvat-008",
+  "kind": "amounts",
+  "title": "Seller outside the VAT system",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-V6",
+    "BR-A6"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": false,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Service",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "100.00",
+        "vatRate": null,
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Material",
+        "unit": "kom",
+        "quantity": "2",
+        "unitPrice": "7.35",
+        "vatRate": null,
+        "priceIncludesVat": false
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Service",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "100.0000",
+        "UPA": "100.0000",
+        "PB": "100.0000",
+        "PA": "100.0000"
+      },
+      {
+        "N": "Material",
+        "U": "kom",
+        "Q": "2",
+        "UPB": "7.3500",
+        "UPA": "7.3500",
+        "PB": "14.7000",
+        "PA": "14.7000"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "114.70",
+      "TotPrice": "114.70"
+    },
+    "sameTaxes": []
+  }
+}

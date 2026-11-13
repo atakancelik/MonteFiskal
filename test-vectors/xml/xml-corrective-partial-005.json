@@ -1,0 +1,77 @@
+{
+  "id": "xml-corrective-partial-005",
+  "kind": "xml",
+  "title": "Partial correction of a non-cash invoice: one line returned",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-C5",
+    "BR-C4"
+  ],
+  "openQuestions": [
+    "Q-02"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "CORRECTIVE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "correction": {
+        "iicRef": "FEDCBA9876543210FEDCBA9876543210",
+        "issuedAt": "2026-11-12T14:00:00+01:00",
+        "type": "CORRECTIVE"
+      },
+      "buyer": {
+        "idType": "TIN",
+        "idNum": "87654321",
+        "name": "Buyer Test Only DOO"
+      },
+      "lines": [
+        {
+          "name": "Consulting",
+          "unit": "h",
+          "quantity": "-2",
+          "unitPrice": "45.00",
+          "vatRate": "21",
+          "priceIncludesVat": false
+        }
+      ],
+      "payments": [
+        {
+          "method": "ACCOUNT"
+        }
+      ]
+    },
+    "issue": {
+      "ordinal": 5,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "c56a4180-65aa-42ec-a945-5fd21dec0538",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"c56a4180-65aa-42ec-a945-5fd21dec0538\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/5/2026/cc123cc123\" InvOrdNum=\"5\" InvType=\"CORRECTIVE\" IsIssuerInVAT=\"true\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TotPrice=\"-108.90\" TotPriceWoVAT=\"-90.00\" TotVATAmt=\"-18.90\" TypeOfInv=\"NONCASH\"><CorrectiveInv IICRef=\"FEDCBA9876543210FEDCBA9876543210\" IssueDateTime=\"2026-11-12T14:00:00+01:00\" Type=\"CORRECTIVE\"></CorrectiveInv><PayMethods><PayMethod Amt=\"-108.90\" Type=\"ACCOUNT\"></PayMethod></PayMethods><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Buyer IDNum=\"87654321\" IDType=\"TIN\" Name=\"Buyer Test Only DOO\"></Buyer><Items><I N=\"Consulting\" PA=\"-108.9000\" PB=\"-90.0000\" Q=\"-2\" U=\"h\" UPA=\"54.4500\" UPB=\"45.0000\" VA=\"-18.9000\" VR=\"21.00\"></I></Items><SameTaxes><SameTax NumOfItems=\"1\" PriceBefVAT=\"-90.00\" VATAmt=\"-18.90\" VATRate=\"21.00\"></SameTax></SameTaxes></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "d44e8f16e8ecb154e13be96004c3d31b27aff12299a17937fdbd2012813489e0",
+    "byteLength": 1775,
+    "invNum": "bb123bb123/5/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|5|bb123bb123|cc123cc123|ss123ss123|-108.90",
+    "typeOfInv": "NONCASH"
+  }
+}

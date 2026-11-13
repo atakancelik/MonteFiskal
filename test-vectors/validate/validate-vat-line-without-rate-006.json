@@ -1,0 +1,58 @@
+{
+  "id": "validate-vat-line-without-rate-006",
+  "kind": "validate",
+  "title": "VAT seller with a line that has neither rate nor exemption",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-V3"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "now": "2026-11-13T09:15:30Z",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "INVOICE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [
+        {
+          "name": "No rate",
+          "unit": "kom",
+          "quantity": "1",
+          "unitPrice": "10.00",
+          "vatRate": null,
+          "priceIncludesVat": false
+        }
+      ],
+      "payments": [
+        {
+          "method": "CARD"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "valid": false,
+    "findings": [
+      {
+        "rule": "BR-V3",
+        "severity": "error"
+      }
+    ]
+  }
+}

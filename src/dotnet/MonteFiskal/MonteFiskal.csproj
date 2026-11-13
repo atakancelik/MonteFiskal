@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MonteFiskal</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <Description>Fiscalization of invoices in Montenegro (EFI, fs-v1): IKOF, XML signature, SOAP client, validation by business rule, outbox and verification URL. Bring your own certificate and registration codes.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Security.Cryptography.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(RepoRoot)schemas/fs-v1/2026-11/official/eficg-fiscalization-service.xsd" LogicalName="MonteFiskal.Schemas.fs-v1.2026-11.eficg-fiscalization-service.xsd" />
+    <EmbeddedResource Include="$(RepoRoot)schemas/fs-v1/2026-11/official/xmldsig-core-schema.xsd" LogicalName="MonteFiskal.Schemas.fs-v1.2026-11.xmldsig-core-schema.xsd" />
+    <EmbeddedResource Include="$(RepoRoot)schemas/fs-v1/2026-11/message-catalog.json" LogicalName="MonteFiskal.Schemas.fs-v1.2026-11.message-catalog.json" />
+    <EmbeddedResource Include="$(RepoRoot)schemas/fs-v1/2026-11/SHA256SUMS" LogicalName="MonteFiskal.Schemas.fs-v1.2026-11.SHA256SUMS" />
+    <EmbeddedResource Include="$(RepoRoot)data/error-codes.json" LogicalName="MonteFiskal.Data.error-codes.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="MonteFiskal.Tests" />
+  </ItemGroup>
+</Project>

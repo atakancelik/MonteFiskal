@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MonteFiskal.Rendering</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <Description>QR code (SVG, PNG) and receipt layouts for MonteFiskal: ESC/POS 58 mm and 80 mm, printable A4 HTML. Own QR encoder (byte mode, error correction M, ISO/IEC 18004), no third-party dependency.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MonteFiskal/MonteFiskal.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(RepoRoot)data/receipt-labels.json" LogicalName="MonteFiskal.Rendering.receipt-labels.json" />
+  </ItemGroup>
+</Project>

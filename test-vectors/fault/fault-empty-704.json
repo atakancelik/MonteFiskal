@@ -1,0 +1,18 @@
+{
+  "id": "fault-empty-704",
+  "kind": "fault",
+  "title": "An empty body is a transport failure",
+  "source": "derived",
+  "status": "derived",
+  "rules": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "httpStatus": 503,
+    "contentType": "text/xml; charset=UTF-8",
+    "body": ""
+  },
+  "expected": {
+    "outcome": "transport",
+    "retryable": true
+  }
+}

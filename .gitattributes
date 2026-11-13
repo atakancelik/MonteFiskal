@@ -1,0 +1,11 @@
+* text=auto eol=lf
+*.cs text eol=lf diff=csharp
+*.php text eol=lf diff=php
+*.sln text eol=crlf
+*.png binary
+*.ico binary
+*.mo binary
+*.zip binary
+# Official files are kept byte for byte; no line-ending conversion.
+schemas/**/official/** -text -diff
+test-vectors/** text eol=lf

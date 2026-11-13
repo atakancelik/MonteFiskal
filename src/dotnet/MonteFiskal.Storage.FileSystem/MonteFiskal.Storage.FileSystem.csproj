@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MonteFiskal.Storage.FileSystem</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <Description>File-system archive and offline export/import for MonteFiskal (BR-O11, BR-X2): one file per request and response, zip archives of at most 15 MB.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MonteFiskal/MonteFiskal.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<ruleset name="MonteFiskal">
+    <description>PSR-12 for the PHP core and the WooCommerce plugin.</description>
+    <file>src/php</file>
+    <file>tests/php</file>
+    <file>plugins/montefiskal-woocommerce/src</file>
+    <file>plugins/montefiskal-woocommerce/tests</file>
+    <file>plugins/montefiskal-woocommerce/montefiskal-woocommerce.php</file>
+    <exclude-pattern>*/Support/countries.php</exclude-pattern>
+    <exclude-pattern>*/Text/nfd-ascii.php</exclude-pattern>
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/lib/*</exclude-pattern>
+    <arg name="extensions" value="php"/>
+    <arg value="sp"/>
+    <rule ref="PSR12"/>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property name="lineLimit" value="200"/>
+            <property name="absoluteLineLimit" value="0"/>
+        </properties>
+    </rule>
+    <!-- WordPress conventions in the plugin: every file starts with the ABSPATH guard, and translatable sentences stay on one line. -->
+    <rule ref="PSR1.Files.SideEffects">
+        <exclude-pattern>*/plugins/montefiskal-woocommerce/*</exclude-pattern>
+    </rule>
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <exclude-pattern>*/plugins/montefiskal-woocommerce/*</exclude-pattern>
+    </rule>
+    <!-- Test names carry the business-rule ID, e.g. testOverdueAfter48Hours_BR_O12. -->
+    <rule ref="PSR1.Methods.CamelCapsMethodName">
+        <exclude-pattern>*/tests/*</exclude-pattern>
+    </rule>
+</ruleset>

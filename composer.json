@@ -1,0 +1,83 @@
+{
+    "name": "montefiskal/core",
+    "description": "Fiscalization of invoices with the Montenegrin EFI service (fs-v1): IKOF, XML signing, SOAP client, outbox, QR and receipts. PHP core of MonteFiskal.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": [
+        "fiscalization",
+        "montenegro",
+        "efi",
+        "ikof",
+        "jikr",
+        "invoice",
+        "tax",
+        "crna gora",
+        "fiskalizacija"
+    ],
+    "homepage": "https://github.com/atakancelik/MonteFiskal",
+    "support": {
+        "issues": "https://github.com/atakancelik/MonteFiskal/issues",
+        "source": "https://github.com/atakancelik/MonteFiskal",
+        "docs": "https://github.com/atakancelik/MonteFiskal/blob/main/docs/api/php.md"
+    },
+    "require": {
+        "php": ">=8.5",
+        "ext-bcmath": "*",
+        "ext-curl": "*",
+        "ext-dom": "*",
+        "ext-libxml": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*"
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.4",
+        "psr/http-client": "^1.0",
+        "psr/http-factory": "^1.1",
+        "squizlabs/php_codesniffer": "^4.0"
+    },
+    "suggest": {
+        "ext-zip": "Offline export and import of request archives (BR-O11).",
+        "psr/http-client": "Use any PSR-18 client through MonteFiskal\\Transport\\Psr18Transport.",
+        "psr/http-factory": "Needed with psr/http-client."
+    },
+    "autoload": {
+        "psr-4": {
+            "MonteFiskal\\": "src/php/montefiskal-core/src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "MonteFiskal\\Tests\\": "tests/php/"
+        }
+    },
+    "archive": {
+        "exclude": [
+            "/src/dotnet",
+            "/tests",
+            "/samples",
+            "/plugins",
+            "/tools",
+            "/docs",
+            "/assets",
+            "/.github",
+            "/.cursor",
+            "/.claude",
+            "/*.slnx",
+            "/Directory.*.props",
+            "/Directory.Build.targets",
+            "/global.json",
+            "/test-vectors"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "platform-check": true
+    },
+    "minimum-stability": "stable",
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "cs": "phpcs"
+    }
+}

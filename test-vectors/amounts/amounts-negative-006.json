@@ -1,0 +1,58 @@
+{
+  "id": "amounts-negative-006",
+  "kind": "amounts",
+  "title": "Negative quantity for a correction; unit prices stay positive",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-A2",
+    "BR-C2"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": true,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Returned item",
+        "unit": "kom",
+        "quantity": "-2",
+        "unitPrice": "8.25",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Returned item",
+        "U": "kom",
+        "Q": "-2",
+        "UPB": "8.2500",
+        "UPA": "9.9825",
+        "PB": "-16.5000",
+        "VR": "21.00",
+        "VA": "-3.4650",
+        "PA": "-19.9650"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "-16.50",
+      "TotVATAmt": "-3.47",
+      "TotPrice": "-19.97"
+    },
+    "sameTaxes": [
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "-16.50",
+        "VATRate": "21.00",
+        "VATAmt": "-3.47"
+      }
+    ]
+  }
+}

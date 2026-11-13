@@ -1,0 +1,22 @@
+{
+  "id": "time-summer-002",
+  "kind": "time",
+  "title": "Summer time is +02:00",
+  "source": "S-07; Q-23 default",
+  "status": "derived",
+  "rules": [
+    "BR-I4"
+  ],
+  "openQuestions": [
+    "Q-23"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "instant": "2026-07-01T10:00:00Z",
+    "timeZone": "Europe/Podgorica",
+    "policy": "local"
+  },
+  "expected": {
+    "formatted": "2026-07-01T12:00:00+02:00"
+  }
+}

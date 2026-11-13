@@ -1,0 +1,30 @@
+{
+  "id": "validate-tcr-missing-codes-028",
+  "kind": "validate",
+  "title": "New registration without software and maintainer codes",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-R2"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "tcr",
+    "today": "2026-11-13",
+    "registration": {
+      "issuerTin": "12345678",
+      "businessUnit": "bb123bb123",
+      "internalId": "1"
+    }
+  },
+  "expected": {
+    "valid": false,
+    "findings": [
+      {
+        "rule": "BR-R2",
+        "severity": "error"
+      }
+    ]
+  }
+}

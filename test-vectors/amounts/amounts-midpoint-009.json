@@ -1,0 +1,95 @@
+{
+  "id": "amounts-midpoint-009",
+  "kind": "amounts",
+  "title": "Half-way values round away from zero",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-A5"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": true,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Tiny item",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "0.00005",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Mid item",
+        "unit": "kom",
+        "quantity": "3",
+        "unitPrice": "0.0125",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Negative mid",
+        "unit": "kom",
+        "quantity": "-1",
+        "unitPrice": "0.00005",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Tiny item",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "0.0001",
+        "UPA": "0.0001",
+        "PB": "0.0001",
+        "VR": "21.00",
+        "VA": "0.0000",
+        "PA": "0.0001"
+      },
+      {
+        "N": "Mid item",
+        "U": "kom",
+        "Q": "3",
+        "UPB": "0.0125",
+        "UPA": "0.0151",
+        "PB": "0.0375",
+        "VR": "21.00",
+        "VA": "0.0078",
+        "PA": "0.0453"
+      },
+      {
+        "N": "Negative mid",
+        "U": "kom",
+        "Q": "-1",
+        "UPB": "0.0001",
+        "UPA": "0.0001",
+        "PB": "-0.0001",
+        "VR": "21.00",
+        "VA": "0.0000",
+        "PA": "-0.0001"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "0.04",
+      "TotVATAmt": "0.01",
+      "TotPrice": "0.05"
+    },
+    "sameTaxes": [
+      {
+        "NumOfItems": "3",
+        "PriceBefVAT": "0.04",
+        "VATRate": "21.00",
+        "VATAmt": "0.01"
+      }
+    ]
+  }
+}

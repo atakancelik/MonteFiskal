@@ -1,0 +1,39 @@
+name: schema-drift
+
+on:
+  schedule:
+    - cron: "41 5 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  drift:
+    if: github.repository == 'atakancelik/MonteFiskal'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Compare the live WSDL and XSD with the bundled revision
+        id: drift
+        run: |
+          set +e
+          python3 -I tools/catalog/drift_check.py --revision schemas/fs-v1/2026-11 --report "$RUNNER_TEMP/drift.md"
+          code=$?
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ "$code" = "2" ]; then echo "::warning::The live service could not be reached; this is not a drift."; exit 0; fi
+          exit 0
+      - name: Open a spec-change issue
+        if: steps.drift.outputs.code == '3'
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: |
+            const fs = require('fs');
+            const body = fs.readFileSync(process.env.RUNNER_TEMP + '/drift.md', 'utf8');
+            const title = 'spec-change: live EFI schema differs from the bundled revision';
+            const open = await github.rest.issues.listForRepo({ owner: context.repo.owner, repo: context.repo.repo, state: 'open', labels: 'spec-change' });
+            if (open.data.some(i => i.title === title)) { return; }
+            await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body, labels: ['spec-change'] });

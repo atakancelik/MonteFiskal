@@ -1,0 +1,32 @@
+{
+  "id": "xml-deposit-withdraw-017",
+  "kind": "xml",
+  "title": "Cash withdrawal, sent late",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-D2",
+    "BR-D4"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "deposit",
+    "deposit": {
+      "issuerTin": "12345678",
+      "tcr": "cc123cc123",
+      "changeDateTime": "2026-11-13T15:30:00Z",
+      "operation": "WITHDRAW",
+      "amount": "150.00"
+    },
+    "issue": {
+      "uuid": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
+      "sendDateTime": "2026-11-13T16:00:00Z",
+      "subsequentDelivery": "NOINTERNET"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterCashDepositRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T17:00:00+01:00\" SubseqDelivType=\"NOINTERNET\" UUID=\"7c9e6679-7425-40de-944b-e07fc1f90ae7\"></Header><CashDeposit CashAmt=\"150.00\" ChangeDateTime=\"2026-11-13T16:30:00+01:00\" IssuerTIN=\"12345678\" Operation=\"WITHDRAW\" TCRCode=\"cc123cc123\"></CashDeposit></RegisterCashDepositRequest>",
+    "canonicalSha256": "2bf4e1ec183b6589739e8f968aea35d215b4868ddda6c0a6732fb91d40d398f7",
+    "byteLength": 404
+  }
+}

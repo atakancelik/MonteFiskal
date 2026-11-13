@@ -1,0 +1,71 @@
+{
+  "id": "xml-corrective-full-004",
+  "kind": "xml",
+  "title": "Full reversal of a cash card invoice",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-C2",
+    "BR-C4",
+    "BR-C6"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "CORRECTIVE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "correction": {
+        "iicRef": "FEDCBA9876543210FEDCBA9876543210",
+        "issuedAt": "2026-11-12T14:00:00+01:00",
+        "type": "CORRECTIVE"
+      },
+      "lines": [
+        {
+          "name": "Test item",
+          "unit": "kom",
+          "quantity": "-1",
+          "unitPrice": "12.10",
+          "vatRate": "21",
+          "priceIncludesVat": true
+        }
+      ],
+      "payments": [
+        {
+          "method": "CARD"
+        }
+      ]
+    },
+    "issue": {
+      "ordinal": 4,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "a8098c1a-f86e-41da-bd1a-00c04fd430c8",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"a8098c1a-f86e-41da-bd1a-00c04fd430c8\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/4/2026/cc123cc123\" InvOrdNum=\"4\" InvType=\"CORRECTIVE\" IsIssuerInVAT=\"true\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TotPrice=\"-12.10\" TotPriceWoVAT=\"-10.00\" TotVATAmt=\"-2.10\" TypeOfInv=\"CASH\"><CorrectiveInv IICRef=\"FEDCBA9876543210FEDCBA9876543210\" IssueDateTime=\"2026-11-12T14:00:00+01:00\" Type=\"CORRECTIVE\"></CorrectiveInv><PayMethods><PayMethod Amt=\"-12.10\" Type=\"CARD\"></PayMethod></PayMethods><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Items><I N=\"Test item\" PA=\"-12.1000\" PB=\"-10.0000\" Q=\"-1\" U=\"kom\" UPA=\"12.1000\" UPB=\"10.0000\" VA=\"-2.1000\" VR=\"21.00\"></I></Items><SameTaxes><SameTax NumOfItems=\"1\" PriceBefVAT=\"-10.00\" VATAmt=\"-2.10\" VATRate=\"21.00\"></SameTax></SameTaxes></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "7bb526eb53ed2118dfdac40212896aab53c6dea4609bb40a0e11a82e698914c1",
+    "byteLength": 1692,
+    "invNum": "bb123bb123/4/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|4|bb123bb123|cc123cc123|ss123ss123|-12.10",
+    "typeOfInv": "CASH"
+  }
+}

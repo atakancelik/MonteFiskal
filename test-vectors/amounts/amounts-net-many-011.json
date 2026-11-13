@@ -1,0 +1,231 @@
+{
+  "id": "amounts-net-many-011",
+  "kind": "amounts",
+  "title": "Ten net lines with odd prices",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-A1",
+    "BR-A5",
+    "BR-A6",
+    "BR-V3"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": true,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Item 1",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "1.37",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item 2",
+        "unit": "kom",
+        "quantity": "2",
+        "unitPrice": "2.74",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item 3",
+        "unit": "kom",
+        "quantity": "3",
+        "unitPrice": "4.11",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item 4",
+        "unit": "kom",
+        "quantity": "4",
+        "unitPrice": "5.48",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item 5",
+        "unit": "kom",
+        "quantity": "5",
+        "unitPrice": "6.85",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item 6",
+        "unit": "kom",
+        "quantity": "6",
+        "unitPrice": "8.22",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item 7",
+        "unit": "kom",
+        "quantity": "7",
+        "unitPrice": "9.59",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item 8",
+        "unit": "kom",
+        "quantity": "8",
+        "unitPrice": "10.96",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item 9",
+        "unit": "kom",
+        "quantity": "9",
+        "unitPrice": "12.33",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item 10",
+        "unit": "kom",
+        "quantity": "10",
+        "unitPrice": "13.70",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Item 1",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "1.3700",
+        "UPA": "1.6577",
+        "PB": "1.3700",
+        "VR": "21.00",
+        "VA": "0.2877",
+        "PA": "1.6577"
+      },
+      {
+        "N": "Item 2",
+        "U": "kom",
+        "Q": "2",
+        "UPB": "2.7400",
+        "UPA": "3.3154",
+        "PB": "5.4800",
+        "VR": "21.00",
+        "VA": "1.1508",
+        "PA": "6.6308"
+      },
+      {
+        "N": "Item 3",
+        "U": "kom",
+        "Q": "3",
+        "UPB": "4.1100",
+        "UPA": "4.9731",
+        "PB": "12.3300",
+        "VR": "21.00",
+        "VA": "2.5893",
+        "PA": "14.9193"
+      },
+      {
+        "N": "Item 4",
+        "U": "kom",
+        "Q": "4",
+        "UPB": "5.4800",
+        "UPA": "6.6308",
+        "PB": "21.9200",
+        "VR": "21.00",
+        "VA": "4.6032",
+        "PA": "26.5232"
+      },
+      {
+        "N": "Item 5",
+        "U": "kom",
+        "Q": "5",
+        "UPB": "6.8500",
+        "UPA": "8.2885",
+        "PB": "34.2500",
+        "VR": "21.00",
+        "VA": "7.1925",
+        "PA": "41.4425"
+      },
+      {
+        "N": "Item 6",
+        "U": "kom",
+        "Q": "6",
+        "UPB": "8.2200",
+        "UPA": "9.9462",
+        "PB": "49.3200",
+        "VR": "21.00",
+        "VA": "10.3572",
+        "PA": "59.6772"
+      },
+      {
+        "N": "Item 7",
+        "U": "kom",
+        "Q": "7",
+        "UPB": "9.5900",
+        "UPA": "11.6039",
+        "PB": "67.1300",
+        "VR": "21.00",
+        "VA": "14.0973",
+        "PA": "81.2273"
+      },
+      {
+        "N": "Item 8",
+        "U": "kom",
+        "Q": "8",
+        "UPB": "10.9600",
+        "UPA": "13.2616",
+        "PB": "87.6800",
+        "VR": "21.00",
+        "VA": "18.4128",
+        "PA": "106.0928"
+      },
+      {
+        "N": "Item 9",
+        "U": "kom",
+        "Q": "9",
+        "UPB": "12.3300",
+        "UPA": "14.9193",
+        "PB": "110.9700",
+        "VR": "21.00",
+        "VA": "23.3037",
+        "PA": "134.2737"
+      },
+      {
+        "N": "Item 10",
+        "U": "kom",
+        "Q": "10",
+        "UPB": "13.7000",
+        "UPA": "16.5770",
+        "PB": "137.0000",
+        "VR": "21.00",
+        "VA": "28.7700",
+        "PA": "165.7700"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "527.45",
+      "TotVATAmt": "110.76",
+      "TotPrice": "638.21"
+    },
+    "sameTaxes": [
+      {
+        "NumOfItems": "10",
+        "PriceBefVAT": "527.45",
+        "VATRate": "21.00",
+        "VATAmt": "110.76"
+      }
+    ]
+  }
+}

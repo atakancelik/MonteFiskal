@@ -1,0 +1,60 @@
+{
+  "id": "amounts-quantity-005",
+  "kind": "amounts",
+  "title": "Quantity with three decimals",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-A1",
+    "BR-A5",
+    "BR-A6",
+    "BR-V3"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": true,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Cheese",
+        "unit": "kg",
+        "quantity": "0.375",
+        "unitPrice": "14.90",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Cheese",
+        "U": "kg",
+        "Q": "0.375",
+        "UPB": "14.9000",
+        "UPA": "18.0290",
+        "PB": "5.5875",
+        "VR": "21.00",
+        "VA": "1.1734",
+        "PA": "6.7609"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "5.59",
+      "TotVATAmt": "1.17",
+      "TotPrice": "6.76"
+    },
+    "sameTaxes": [
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "5.59",
+        "VATRate": "21.00",
+        "VATAmt": "1.17"
+      }
+    ]
+  }
+}

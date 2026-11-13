@@ -1,0 +1,186 @@
+{
+  "id": "validate-catalog-types-032",
+  "kind": "validate",
+  "title": "Valid and invalid samples for every pattern type of the catalog",
+  "source": "message-catalog.json simpleTypes",
+  "status": "verified",
+  "rules": [
+    "BR-O10"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "catalogTypes",
+    "samples": {
+      "UUIDSType": {
+        "valid": [
+          "3f2a1c4e-8b7d-4e21-9a6f-0c5d2e8b1a47",
+          "3F2A1C4E-8B7D-4E21-9A6F-0C5D2E8B1A47"
+        ],
+        "invalid": [
+          "3f2a1c4e-8b7d-0e21-9a6f-0c5d2e8b1a47",
+          "3f2a1c4e8b7d4e219a6f0c5d2e8b1a47",
+          ""
+        ]
+      },
+      "UTCSType": {
+        "valid": [
+          "2026-11-13T10:15:30+01:00",
+          "2026-11-13T09:15:30Z"
+        ],
+        "invalid": [
+          "2026-11-13T10:15:30",
+          "2026-11-13T10:15:30.123+01:00",
+          "2026-11-13 10:15:30+01:00"
+        ]
+      },
+      "DateSType": {
+        "valid": [
+          "2026-11-13"
+        ],
+        "invalid": [
+          "13.11.2026",
+          "2026-11-13T00:00:00"
+        ]
+      },
+      "DecimalSType": {
+        "valid": [
+          "0",
+          "0.00",
+          "12.10",
+          "10000.00"
+        ],
+        "invalid": [
+          "-1.00",
+          "12.1",
+          "12.100",
+          "01.00",
+          "1e2"
+        ]
+      },
+      "DecimalNegSType": {
+        "valid": [
+          "0",
+          "-0.00",
+          "-12.10",
+          "12.10"
+        ],
+        "invalid": [
+          "12.1",
+          "--1.00",
+          "1.000"
+        ]
+      },
+      "Decimal4SType": {
+        "valid": [
+          "0",
+          "12.10",
+          "12.1000",
+          "0.0001"
+        ],
+        "invalid": [
+          "12.1",
+          "12.10000",
+          "-1.00"
+        ]
+      },
+      "Decimal4NegSType": {
+        "valid": [
+          "-12.1000",
+          "0",
+          "12.10"
+        ],
+        "invalid": [
+          "12.1",
+          "-12.10000"
+        ]
+      },
+      "DoubleNegForQuantitySType": {
+        "valid": [
+          "1",
+          "-2",
+          "0.375",
+          "10.5"
+        ],
+        "invalid": [
+          "1.0005",
+          "1e3",
+          "01",
+          ".5"
+        ]
+      },
+      "VoucherNumSType": {
+        "valid": [
+          "1-2026-00000001"
+        ],
+        "invalid": [
+          "0-2026-00000001",
+          "1-26-00000001"
+        ]
+      },
+      "TINSType": {
+        "valid": [
+          "12345678",
+          "1234567890123"
+        ],
+        "invalid": [
+          "1234567",
+          "123456789",
+          "ABCDEFGH"
+        ]
+      },
+      "InvNumSType": {
+        "valid": [
+          "bb123bb123/9952/2019/cc123cc123"
+        ],
+        "invalid": [
+          "bb123bb123/09952/2019/cc123cc123",
+          "9952/2019",
+          "bb123bb123/1/19/cc123cc123"
+        ]
+      },
+      "Hex32SType": {
+        "valid": [
+          "E4033D471FEEA47A3C664B15C669C709",
+          "e4033d471feea47a3c664b15c669c709"
+        ],
+        "invalid": [
+          "E4033D471FEEA47A3C664B15C669C70",
+          "G4033D471FEEA47A3C664B15C669C709"
+        ]
+      },
+      "Hex512SType": {
+        "valid": [
+          "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+        ],
+        "invalid": [
+          "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+          "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB"
+        ]
+      },
+      "RegistrationCodeSType": {
+        "valid": [
+          "bb123bb123"
+        ],
+        "invalid": [
+          "BB123BB123",
+          "bb123bb12",
+          "b1123bb123"
+        ]
+      },
+      "TaxPeriodSType": {
+        "valid": [
+          "10/2026",
+          "01/2027"
+        ],
+        "invalid": [
+          "13/2026",
+          "1/2026",
+          "10-2026"
+        ]
+      }
+    }
+  },
+  "expected": {
+    "allPatternTypesCovered": true
+  }
+}

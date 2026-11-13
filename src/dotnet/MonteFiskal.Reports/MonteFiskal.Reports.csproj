@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MonteFiskal.Reports</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <Description>Inspector reports for MonteFiskal (BR-X3): fiscal state, daily and periodic turnover, analytic journal, offline and corrective journals, with CSV export.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MonteFiskal/MonteFiskal.csproj" />
+  </ItemGroup>
+</Project>

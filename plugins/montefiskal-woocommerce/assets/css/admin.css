@@ -1,0 +1,15 @@
+.montefiskal .form-table th { width: 260px; }
+.montefiskal-steps { display: flex; gap: 16px; list-style: decimal inside; padding: 0; }
+.montefiskal-steps li { color: #646970; }
+.montefiskal-steps li.current { color: #1d2327; font-weight: 600; }
+.montefiskal-doc { border-top: 1px solid #dcdcde; padding-top: 8px; }
+.montefiskal-doc dl { display: grid; grid-template-columns: auto 1fr; gap: 2px 8px; margin: 0; }
+.montefiskal-doc dt { color: #646970; }
+.montefiskal-doc dd { margin: 0; overflow-wrap: anywhere; }
+.montefiskal-error { color: #b32d2e; }
+.montefiskal-state { display: inline-block; padding: 0 6px; border-radius: 3px; background: #f0f0f1; white-space: nowrap; }
+.montefiskal-state-fiscalized { background: #c6e1c6; color: #2c4700; }
+.montefiskal-state-pending, .montefiskal-state-issued { background: #f8dda7; color: #573b00; }
+.montefiskal-state-overdue, .montefiskal-state-rejected { background: #eba3a3; color: #570000; }
+.montefiskal-report th { width: 280px; }
+.montefiskal-subtotal th { text-align: right; }

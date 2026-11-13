@@ -1,0 +1,48 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+TestResults/
+artifacts/
+*.nupkg
+*.snupkg
+
+# PHP
+vendor/
+.phpunit.cache/
+.phpunit.result.cache
+.php-cs-fixer.cache
+composer.phar
+
+# Plugin build output
+plugins/montefiskal-woocommerce/build/
+plugins/montefiskal-woocommerce/vendor/
+plugins/montefiskal-woocommerce/lib/
+
+# Tools
+__pycache__/
+*.pyc
+node_modules/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Never commit key material (also enforced by tools/secret-scan)
+*.pfx
+*.p12
+*.pem
+*.key
+*.crt
+*.cer
+*.der
+*.jks
+*.keystore
+*.p7b
+.env
+.env.*
+
+composer.lock
+dist/

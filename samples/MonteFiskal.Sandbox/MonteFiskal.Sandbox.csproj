@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <InvariantGlobalization>false</InvariantGlobalization>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../src/dotnet/MonteFiskal/MonteFiskal.csproj" />
+    <ProjectReference Include="../../src/dotnet/MonteFiskal.Testing/MonteFiskal.Testing.csproj" />
+    <ProjectReference Include="../../src/dotnet/MonteFiskal.Rendering/MonteFiskal.Rendering.csproj" />
+  </ItemGroup>
+</Project>

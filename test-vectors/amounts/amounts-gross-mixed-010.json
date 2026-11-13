@@ -1,0 +1,102 @@
+{
+  "id": "amounts-gross-mixed-010",
+  "kind": "amounts",
+  "title": "Gross lines at several rates",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-A5",
+    "BR-A7"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": true,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Book",
+        "unit": "kom",
+        "quantity": "2",
+        "unitPrice": "19.90",
+        "vatRate": "7",
+        "priceIncludesVat": true
+      },
+      {
+        "name": "Pen",
+        "unit": "kom",
+        "quantity": "5",
+        "unitPrice": "1.25",
+        "vatRate": "21",
+        "priceIncludesVat": true
+      },
+      {
+        "name": "Delivery",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "2.00",
+        "vatRate": "21",
+        "priceIncludesVat": true
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Book",
+        "U": "kom",
+        "Q": "2",
+        "UPB": "18.5981",
+        "UPA": "19.9000",
+        "PB": "37.1963",
+        "VR": "7.00",
+        "VA": "2.6037",
+        "PA": "39.8000"
+      },
+      {
+        "N": "Pen",
+        "U": "kom",
+        "Q": "5",
+        "UPB": "1.0331",
+        "UPA": "1.2500",
+        "PB": "5.1653",
+        "VR": "21.00",
+        "VA": "1.0847",
+        "PA": "6.2500"
+      },
+      {
+        "N": "Delivery",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "1.6529",
+        "UPA": "2.0000",
+        "PB": "1.6529",
+        "VR": "21.00",
+        "VA": "0.3471",
+        "PA": "2.0000"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "44.01",
+      "TotVATAmt": "4.04",
+      "TotPrice": "48.05"
+    },
+    "sameTaxes": [
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "37.20",
+        "VATRate": "7.00",
+        "VATAmt": "2.60"
+      },
+      {
+        "NumOfItems": "2",
+        "PriceBefVAT": "6.82",
+        "VATRate": "21.00",
+        "VATAmt": "1.43"
+      }
+    ]
+  }
+}

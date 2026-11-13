@@ -1,0 +1,25 @@
+{
+  "id": "fault-live-011",
+  "kind": "fault",
+  "title": "Schema fault as observed on efitest: HTTP 500, env:CLIENT, code 11, no request UUID",
+  "source": "P-01",
+  "status": "verified",
+  "rules": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "httpStatus": 500,
+    "contentType": "text/xml; charset=UTF-8",
+    "body": "<env:Envelope xmlns:env=\"http://schemas.xmlsoap.org/soap/envelope/\"><env:Header/><env:Body><env:Fault><faultcode>env:CLIENT</faultcode><faultstring>Validation of the received XML message failed. Code=11 ResponseUUID=9416dcca-499a-4724-933d-40d115ea4fc7</faultstring><detail><code>11</code><responseUUID>9416dcca-499a-4724-933d-40d115ea4fc7</responseUUID></detail></env:Fault></env:Body></env:Envelope>"
+  },
+  "expected": {
+    "outcome": "fault",
+    "code": 11,
+    "class": "schema",
+    "retryable": false,
+    "blocking": true,
+    "faultCode": "CLIENT",
+    "faultString": "Validation of the received XML message failed. Code=11 ResponseUUID=9416dcca-499a-4724-933d-40d115ea4fc7",
+    "requestUuid": null,
+    "responseUuid": "9416dcca-499a-4724-933d-40d115ea4fc7"
+  }
+}

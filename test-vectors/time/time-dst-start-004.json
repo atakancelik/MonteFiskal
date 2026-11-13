@@ -1,0 +1,22 @@
+{
+  "id": "time-dst-start-004",
+  "kind": "time",
+  "title": "First second after the spring change",
+  "source": "S-07; Q-23 default",
+  "status": "derived",
+  "rules": [
+    "BR-I4"
+  ],
+  "openQuestions": [
+    "Q-23"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "instant": "2026-03-29T01:00:00Z",
+    "timeZone": "Europe/Podgorica",
+    "policy": "local"
+  },
+  "expected": {
+    "formatted": "2026-03-29T03:00:00+02:00"
+  }
+}

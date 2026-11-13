@@ -1,0 +1,31 @@
+{
+  "id": "xml-deposit-initial-016",
+  "kind": "xml",
+  "title": "Daily INITIAL deposit of 0.00",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-D1",
+    "BR-D5"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "deposit",
+    "deposit": {
+      "issuerTin": "12345678",
+      "tcr": "cc123cc123",
+      "changeDateTime": "2026-11-13T07:00:00Z",
+      "operation": "INITIAL",
+      "amount": "0.00"
+    },
+    "issue": {
+      "uuid": "3f2a1c4e-8b7d-4e21-9a6f-0c5d2e8b1a47",
+      "sendDateTime": "2026-11-13T07:00:01Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterCashDepositRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T08:00:01+01:00\" UUID=\"3f2a1c4e-8b7d-4e21-9a6f-0c5d2e8b1a47\"></Header><CashDeposit CashAmt=\"0.00\" ChangeDateTime=\"2026-11-13T08:00:00+01:00\" IssuerTIN=\"12345678\" Operation=\"INITIAL\" TCRCode=\"cc123cc123\"></CashDeposit></RegisterCashDepositRequest>",
+    "canonicalSha256": "d2ccfe9abcf09981052286a4c58f24c0f7b33258ad702bbb0fa65a3c14d517d7",
+    "byteLength": 372
+  }
+}

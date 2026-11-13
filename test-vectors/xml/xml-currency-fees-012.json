@@ -1,0 +1,81 @@
+{
+  "id": "xml-currency-fees-012",
+  "kind": "xml",
+  "title": "Foreign currency block, fee and note",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-K12"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "INVOICE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "currency": {
+        "code": "USD",
+        "exchangeRate": "0.8650"
+      },
+      "lines": [
+        {
+          "name": "Item",
+          "unit": "kom",
+          "quantity": "1",
+          "unitPrice": "100.00",
+          "vatRate": "21",
+          "priceIncludesVat": false
+        }
+      ],
+      "payments": [
+        {
+          "method": "ACCOUNT"
+        }
+      ],
+      "fees": [
+        {
+          "type": "PACK",
+          "amount": "1.50"
+        }
+      ],
+      "note": "Test note",
+      "buyer": {
+        "idType": "VAT",
+        "idNum": "DE000000000",
+        "name": "Foreign Buyer Test Only GmbH",
+        "country": "DEU"
+      }
+    },
+    "issue": {
+      "ordinal": 12,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "1b4e28ba-2fa1-41d2-883f-0016d3cca427",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"1b4e28ba-2fa1-41d2-883f-0016d3cca427\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/12/2026/cc123cc123\" InvOrdNum=\"12\" InvType=\"INVOICE\" IsIssuerInVAT=\"true\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" Note=\"Test note\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TotPrice=\"121.00\" TotPriceWoVAT=\"100.00\" TotVATAmt=\"21.00\" TypeOfInv=\"NONCASH\"><PayMethods><PayMethod Amt=\"121.00\" Type=\"ACCOUNT\"></PayMethod></PayMethods><Currency Code=\"USD\" ExRate=\"0.865\"></Currency><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Buyer Country=\"DEU\" IDNum=\"DE000000000\" IDType=\"VAT\" Name=\"Foreign Buyer Test Only GmbH\"></Buyer><Items><I N=\"Item\" PA=\"121.0000\" PB=\"100.0000\" Q=\"1\" U=\"kom\" UPA=\"121.0000\" UPB=\"100.0000\" VA=\"21.0000\" VR=\"21.00\"></I></Items><SameTaxes><SameTax NumOfItems=\"1\" PriceBefVAT=\"100.00\" VATAmt=\"21.00\" VATRate=\"21.00\"></SameTax></SameTaxes><Fees><Fee Amt=\"1.50\" Type=\"PACK\"></Fee></Fees></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "198902a373b6b8c25b35c21296ef449131c6c9fcead83a16e11494817db9623e",
+    "byteLength": 1769,
+    "invNum": "bb123bb123/12/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|12|bb123bb123|cc123cc123|ss123ss123|121.00",
+    "typeOfInv": "NONCASH"
+  }
+}

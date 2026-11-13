@@ -1,0 +1,18 @@
+{
+  "id": "fault-spec-001",
+  "kind": "fault",
+  "title": "Fault example of the specification: its closing tag mismatch makes it a malformed response",
+  "source": "D-01 §3.8.3",
+  "status": "verified",
+  "rules": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "httpStatus": 500,
+    "contentType": "text/xml; charset=UTF-8",
+    "body": "<SOAP-ENV:Envelope xmlns:SOAP-ENV=\"http://schemas.xmlsoap.org/soap/envelope/\">\n\f   <SOAP-ENV:Header/>\n   <SOAP-ENV:Body>\n      <SOAP-ENV:Fault>\n         <faultcode>SOAP-ENV:CLIENT</faultcode>\n         <faultstring xml:lang=\"en\">Validation failed with digest wrong.</faultstring>\n         <detail>\n            <code>30</code>\n            <requestUUID>8d216f9a-55bb-445a-be32-30137f11b964</requestUUID>\n            <responseUUID>9416dcca-499a-4724-933d-40d115ea4fc7</requestUUID>\n         </detail>\n      </SOAP-ENV:Fault>\n   </SOAP-ENV:Body>\n</SOAP-ENV:Envelope>"
+  },
+  "expected": {
+    "outcome": "malformedResponse",
+    "retryable": true
+  }
+}

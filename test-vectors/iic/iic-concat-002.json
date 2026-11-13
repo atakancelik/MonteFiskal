@@ -1,0 +1,24 @@
+{
+  "id": "iic-concat-002",
+  "kind": "iic",
+  "title": "Concatenation for a corrective invoice with a negative total",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-I4",
+    "BR-C6"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerTin": "12345678",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "ordinal": "1",
+    "businessUnit": "bb123bb123",
+    "tcr": "cc123cc123",
+    "software": "ss123ss123",
+    "totalPrice": "-12.50"
+  },
+  "expected": {
+    "concat": "12345678|2026-11-13T10:15:30+01:00|1|bb123bb123|cc123cc123|ss123ss123|-12.50"
+  }
+}

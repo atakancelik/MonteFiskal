@@ -1,0 +1,26 @@
+{
+  "id": "validate-initial-zero-031",
+  "kind": "validate",
+  "title": "INITIAL of 0.00 is allowed",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-D1"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "deposit",
+    "deposit": {
+      "issuerTin": "12345678",
+      "tcr": "cc123cc123",
+      "changeDateTime": "2026-11-13T09:15:30Z",
+      "operation": "INITIAL",
+      "amount": "0.00"
+    }
+  },
+  "expected": {
+    "valid": true,
+    "findings": []
+  }
+}

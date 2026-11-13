@@ -1,0 +1,23 @@
+{
+  "id": "number-live-001",
+  "kind": "number",
+  "title": "Valid number BU/ordinal/year/TCR",
+  "source": "S-10, live XSD InvNumSType",
+  "status": "verified",
+  "rules": [
+    "BR-N1",
+    "BR-N2",
+    "BR-N4"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "businessUnit": "bb123bb123",
+    "ordinal": 9952,
+    "issuedAt": "2019-06-12T17:05:43+02:00",
+    "tcr": "cc123cc123",
+    "timeZone": "Europe/Podgorica"
+  },
+  "expected": {
+    "invNum": "bb123bb123/9952/2019/cc123cc123"
+  }
+}

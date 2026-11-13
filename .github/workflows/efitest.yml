@@ -1,0 +1,52 @@
+name: efitest
+
+# Opt-in integration suite against the Tax Administration's TEST service only. Secrets come from the protected
+# "efitest" environment; the job never runs for pull requests or forks, and never against production.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 6 * * 1"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: efitest
+  cancel-in-progress: false
+
+jobs:
+  efitest:
+    if: github.ref == format('refs/heads/{0}', github.event.repository.default_branch) && github.repository == 'atakancelik/MonteFiskal'
+    runs-on: ubuntu-24.04
+    environment: efitest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+        with:
+          global-json-file: global.json
+      - name: Write the certificate for this run only
+        env:
+          CERT_BASE64: ${{ secrets.MONTEFISKAL_IT_CERT_BASE64 }}
+        run: |
+          umask 077
+          printf '%s' "$CERT_BASE64" | base64 -d > "$RUNNER_TEMP/efitest.p12"
+          echo "MONTEFISKAL_IT_CERT_PATH=$RUNNER_TEMP/efitest.p12" >> "$GITHUB_ENV"
+      - name: efitest scenarios
+        env:
+          MONTEFISKAL_IT_ENABLED: "1"
+          MONTEFISKAL_IT_CERT_PASSWORD: ${{ secrets.MONTEFISKAL_IT_CERT_PASSWORD }}
+          MONTEFISKAL_IT_TIN: ${{ secrets.MONTEFISKAL_IT_TIN }}
+          MONTEFISKAL_IT_NAME: ${{ secrets.MONTEFISKAL_IT_NAME }}
+          MONTEFISKAL_IT_IN_VAT: ${{ secrets.MONTEFISKAL_IT_IN_VAT }}
+          MONTEFISKAL_IT_BU: ${{ secrets.MONTEFISKAL_IT_BU }}
+          MONTEFISKAL_IT_TCR: ${{ secrets.MONTEFISKAL_IT_TCR }}
+          MONTEFISKAL_IT_SOFTWARE: ${{ secrets.MONTEFISKAL_IT_SOFTWARE }}
+          MONTEFISKAL_IT_OPERATOR: ${{ secrets.MONTEFISKAL_IT_OPERATOR }}
+          MONTEFISKAL_IT_MAINTAINER: ${{ secrets.MONTEFISKAL_IT_MAINTAINER }}
+        # Output is the test summary only; requests and responses are not printed.
+        run: dotnet test --project tests/dotnet/MonteFiskal.IntegrationTests -c Release -- --output Normal
+      - name: Remove the certificate
+        if: always()
+        run: rm -f "$RUNNER_TEMP/efitest.p12"

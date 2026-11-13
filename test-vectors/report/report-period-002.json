@@ -1,0 +1,168 @@
+{
+  "id": "report-period-002",
+  "kind": "report",
+  "title": "Periodic turnover report over two days",
+  "source": "D-08 §5.12 (BR-X3)",
+  "status": "derived",
+  "rules": [
+    "BR-X3"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "report": "periodic",
+    "from": "2026-11-13",
+    "to": "2026-11-14",
+    "tcr": "cc123cc123",
+    "businessUnit": "bb123bb123",
+    "invoices": [
+      {
+        "number": "bb123bb123/1/2026/cc123cc123",
+        "kind": "INVOICE",
+        "typeOfInv": "CASH",
+        "issueDateTime": "2026-11-13T09:00:00+01:00",
+        "operator": "oo123oo123",
+        "fiscalized": true,
+        "totalWithoutVat": "10.00",
+        "vatAmount": "2.10",
+        "total": "12.10",
+        "sameTaxes": [
+          {
+            "vatRate": "21.00",
+            "priceBeforeVat": "10.00",
+            "vatAmount": "2.10"
+          }
+        ],
+        "payments": [
+          {
+            "method": "CARD",
+            "amount": "12.10"
+          }
+        ]
+      },
+      {
+        "number": "bb123bb123/2/2026/cc123cc123",
+        "kind": "INVOICE",
+        "typeOfInv": "CASH",
+        "issueDateTime": "2026-11-13T11:30:00+01:00",
+        "operator": "oo123oo123",
+        "fiscalized": false,
+        "totalWithoutVat": "20.00",
+        "vatAmount": "1.40",
+        "total": "21.40",
+        "sameTaxes": [
+          {
+            "vatRate": "7.00",
+            "priceBeforeVat": "20.00",
+            "vatAmount": "1.40"
+          }
+        ],
+        "payments": [
+          {
+            "method": "BANKNOTE",
+            "amount": "21.40"
+          }
+        ]
+      },
+      {
+        "number": "bb123bb123/3/2026/cc123cc123",
+        "kind": "CORRECTIVE",
+        "typeOfInv": "CASH",
+        "issueDateTime": "2026-11-13T15:00:00+01:00",
+        "operator": "oo123oo123",
+        "fiscalized": true,
+        "totalWithoutVat": "-10.00",
+        "vatAmount": "-2.10",
+        "total": "-12.10",
+        "sameTaxes": [
+          {
+            "vatRate": "21.00",
+            "priceBeforeVat": "-10.00",
+            "vatAmount": "-2.10"
+          }
+        ],
+        "payments": [
+          {
+            "method": "CARD",
+            "amount": "-12.10"
+          }
+        ]
+      },
+      {
+        "number": "bb123bb123/4/2026/cc123cc123",
+        "kind": "INVOICE",
+        "typeOfInv": "NONCASH",
+        "issueDateTime": "2026-11-14T09:00:00+01:00",
+        "operator": "oo123oo123",
+        "fiscalized": true,
+        "totalWithoutVat": "100.00",
+        "vatAmount": "21.00",
+        "total": "121.00",
+        "sameTaxes": [
+          {
+            "vatRate": "21.00",
+            "priceBeforeVat": "100.00",
+            "vatAmount": "21.00"
+          }
+        ],
+        "payments": [
+          {
+            "method": "ACCOUNT",
+            "amount": "121.00"
+          }
+        ]
+      }
+    ],
+    "deposits": [
+      {
+        "operation": "INITIAL",
+        "amount": "50.00",
+        "changeDateTime": "2026-11-13T08:00:00+01:00"
+      },
+      {
+        "operation": "WITHDRAW",
+        "amount": "30.00",
+        "changeDateTime": "2026-11-13T18:00:00+01:00"
+      }
+    ]
+  },
+  "expected": {
+    "invoiceCount": 4,
+    "correctiveCount": 1,
+    "offlineCount": 1,
+    "totalWithoutVat": "120.00",
+    "vatAmount": "22.40",
+    "total": "142.40",
+    "byVatRate": [
+      {
+        "key": "7.00",
+        "priceBeforeVat": "20.00",
+        "vatAmount": "1.40"
+      },
+      {
+        "key": "21.00",
+        "priceBeforeVat": "100.00",
+        "vatAmount": "21.00"
+      }
+    ],
+    "byPaymentMethod": [
+      {
+        "method": "ACCOUNT",
+        "amount": "121.00"
+      },
+      {
+        "method": "BANKNOTE",
+        "amount": "21.40"
+      },
+      {
+        "method": "CARD",
+        "amount": "0.00"
+      }
+    ],
+    "initialDeposit": "50.00",
+    "withdrawals": "30.00",
+    "expectedCash": "41.40",
+    "operators": [
+      "oo123oo123"
+    ]
+  }
+}

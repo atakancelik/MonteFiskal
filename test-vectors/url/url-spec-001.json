@@ -1,0 +1,31 @@
+{
+  "id": "url-spec-001",
+  "kind": "url",
+  "title": "Verification URL example of the specification, unencoded form",
+  "source": "D-01 §3.7.7.1; D-07 §3.7.7",
+  "status": "verified",
+  "rules": [
+    "BR-Q2",
+    "BR-Q3",
+    "BR-Q6"
+  ],
+  "openQuestions": [
+    "Q-06"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "iic": "EA26D5BE7F45827026108F825A8A512B",
+    "issuerTin": "91806031",
+    "issueDateTime": "2019-09-26T13:50:13+01:00",
+    "ordinal": 6,
+    "businessUnit": "bg517kw842",
+    "tcr": "xb131ap287",
+    "software": "gz434bv927",
+    "totalPrice": "199.00",
+    "environment": "test",
+    "encoding": "none"
+  },
+  "expected": {
+    "url": "https://efitest.tax.gov.me/ic/#/verify?iic=EA26D5BE7F45827026108F825A8A512B&tin=91806031&crtd=2019-09-26T13:50:13+01:00&ord=6&bu=bg517kw842&cr=xb131ap287&sw=gz434bv927&prc=199.00"
+  }
+}

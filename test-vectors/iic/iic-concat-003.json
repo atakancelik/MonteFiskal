@@ -1,0 +1,24 @@
+{
+  "id": "iic-concat-003",
+  "kind": "iic",
+  "title": "Thirteen-digit JMB, fifteen-digit ordinal, zero total",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-I4",
+    "BR-N2"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerTin": "1234567890123",
+    "issueDateTime": "2026-07-01T00:00:00+02:00",
+    "ordinal": "999999999999999",
+    "businessUnit": "ab001cd002",
+    "tcr": "zz999zz999",
+    "software": "ss123ss123",
+    "totalPrice": "0.00"
+  },
+  "expected": {
+    "concat": "1234567890123|2026-07-01T00:00:00+02:00|999999999999999|ab001cd002|zz999zz999|ss123ss123|0.00"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "id": "amounts-rebate-007",
+  "kind": "amounts",
+  "title": "Rebate of 10 % reducing the base",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-A5"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": true,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Discounted item",
+        "unit": "kom",
+        "quantity": "2",
+        "unitPrice": "15.00",
+        "vatRate": "21",
+        "priceIncludesVat": false,
+        "rebate": "10"
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Discounted item",
+        "U": "kom",
+        "Q": "2",
+        "UPB": "15.0000",
+        "UPA": "18.1500",
+        "R": "10.00",
+        "RR": "true",
+        "PB": "27.0000",
+        "VR": "21.00",
+        "VA": "5.6700",
+        "PA": "32.6700"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "27.00",
+      "TotVATAmt": "5.67",
+      "TotPrice": "32.67"
+    },
+    "sameTaxes": [
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "27.00",
+        "VATRate": "21.00",
+        "VATAmt": "5.67"
+      }
+    ]
+  }
+}

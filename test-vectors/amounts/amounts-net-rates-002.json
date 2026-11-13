@@ -1,0 +1,160 @@
+{
+  "id": "amounts-net-rates-002",
+  "kind": "amounts",
+  "title": "Net lines at 21, 15, 7 and 0 % and an exempt line",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-A5",
+    "BR-A6",
+    "BR-V3",
+    "BR-V4",
+    "BR-V5"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": true,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Item A",
+        "unit": "kom",
+        "quantity": "2",
+        "unitPrice": "8.25",
+        "vatRate": "21",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item B",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "3.99",
+        "vatRate": "15",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Item C",
+        "unit": "kom",
+        "quantity": "3",
+        "unitPrice": "1.10",
+        "vatRate": "7",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Export item",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "50.00",
+        "vatRate": "0",
+        "priceIncludesVat": false
+      },
+      {
+        "name": "Exempt item",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "20.00",
+        "vatRate": null,
+        "priceIncludesVat": false,
+        "exemption": "VAT_CL20"
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Item A",
+        "U": "kom",
+        "Q": "2",
+        "UPB": "8.2500",
+        "UPA": "9.9825",
+        "PB": "16.5000",
+        "VR": "21.00",
+        "VA": "3.4650",
+        "PA": "19.9650"
+      },
+      {
+        "N": "Item B",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "3.9900",
+        "UPA": "4.5885",
+        "PB": "3.9900",
+        "VR": "15.00",
+        "VA": "0.5985",
+        "PA": "4.5885"
+      },
+      {
+        "N": "Item C",
+        "U": "kom",
+        "Q": "3",
+        "UPB": "1.1000",
+        "UPA": "1.1770",
+        "PB": "3.3000",
+        "VR": "7.00",
+        "VA": "0.2310",
+        "PA": "3.5310"
+      },
+      {
+        "N": "Export item",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "50.0000",
+        "UPA": "50.0000",
+        "PB": "50.0000",
+        "VR": "0.00",
+        "VA": "0.0000",
+        "PA": "50.0000"
+      },
+      {
+        "N": "Exempt item",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "20.0000",
+        "UPA": "20.0000",
+        "PB": "20.0000",
+        "PA": "20.0000",
+        "EX": "VAT_CL20"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "93.79",
+      "TotVATAmt": "4.29",
+      "TotPrice": "98.08"
+    },
+    "sameTaxes": [
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "16.50",
+        "VATRate": "21.00",
+        "VATAmt": "3.47"
+      },
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "3.99",
+        "VATRate": "15.00",
+        "VATAmt": "0.60"
+      },
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "3.30",
+        "VATRate": "7.00",
+        "VATAmt": "0.23"
+      },
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "50.00",
+        "VATRate": "0.00",
+        "VATAmt": "0.00"
+      },
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "20.00",
+        "ExemptFromVAT": "VAT_CL20"
+      }
+    ]
+  }
+}

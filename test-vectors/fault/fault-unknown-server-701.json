@@ -1,0 +1,25 @@
+{
+  "id": "fault-unknown-server-701",
+  "kind": "fault",
+  "title": "Unknown code with a SERVER fault code is retryable",
+  "source": "derived",
+  "status": "derived",
+  "rules": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "httpStatus": 500,
+    "contentType": "text/xml; charset=UTF-8",
+    "body": "<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"><soap:Header/><soap:Body><soap:Fault><faultcode>soap:SERVER</faultcode><faultstring>Something new.</faultstring><detail><code>701</code><responseUUID>9416dcca-499a-4724-933d-40d115ea4fc7</responseUUID></detail></soap:Fault></soap:Body></soap:Envelope>"
+  },
+  "expected": {
+    "outcome": "fault",
+    "code": 701,
+    "class": "server",
+    "retryable": true,
+    "blocking": false,
+    "faultCode": "SERVER",
+    "faultString": "Something new.",
+    "requestUuid": null,
+    "responseUuid": "9416dcca-499a-4724-933d-40d115ea4fc7"
+  }
+}

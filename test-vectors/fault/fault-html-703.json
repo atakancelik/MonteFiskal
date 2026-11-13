@@ -1,0 +1,18 @@
+{
+  "id": "fault-html-703",
+  "kind": "fault",
+  "title": "A proxy error page is a transport failure, not a fiscal error",
+  "source": "derived",
+  "status": "derived",
+  "rules": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "httpStatus": 502,
+    "contentType": "text/xml; charset=UTF-8",
+    "body": "<html><body><h1>502 Bad Gateway</h1></body></html>"
+  },
+  "expected": {
+    "outcome": "transport",
+    "retryable": true
+  }
+}

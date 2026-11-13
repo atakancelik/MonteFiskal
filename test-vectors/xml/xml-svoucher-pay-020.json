@@ -1,0 +1,69 @@
+{
+  "id": "xml-svoucher-pay-020",
+  "kind": "xml",
+  "title": "Invoice paid with a single-purpose voucher",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-K5",
+    "BR-K19"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "INVOICE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [
+        {
+          "name": "Item",
+          "unit": "kom",
+          "quantity": "1",
+          "unitPrice": "50.00",
+          "vatRate": "21",
+          "priceIncludesVat": true
+        }
+      ],
+      "payments": [
+        {
+          "method": "SVOUCHER",
+          "vouchers": [
+            "1-2026-00000001"
+          ],
+          "advanceIic": "44444444444444444444444444444444"
+        }
+      ]
+    },
+    "issue": {
+      "ordinal": 16,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "a8098c1a-f86e-41da-bd1a-00c04fd430c8",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"a8098c1a-f86e-41da-bd1a-00c04fd430c8\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/16/2026/cc123cc123\" InvOrdNum=\"16\" InvType=\"INVOICE\" IsIssuerInVAT=\"true\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TotPrice=\"50.00\" TotPriceWoVAT=\"41.32\" TotVATAmt=\"8.68\" TypeOfInv=\"NONCASH\"><PayMethods><PayMethod AdvIIC=\"44444444444444444444444444444444\" Amt=\"50.00\" Type=\"SVOUCHER\"><Vouchers><Voucher Num=\"1-2026-00000001\"></Voucher></Vouchers></PayMethod></PayMethods><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Items><I N=\"Item\" PA=\"50.0000\" PB=\"41.3223\" Q=\"1\" U=\"kom\" UPA=\"50.0000\" UPB=\"41.3223\" VA=\"8.6777\" VR=\"21.00\"></I></Items><SameTaxes><SameTax NumOfItems=\"1\" PriceBefVAT=\"41.32\" VATAmt=\"8.68\" VATRate=\"21.00\"></SameTax></SameTaxes></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "e7dae5fd3d420ca7695dc00940f14cdc9890843e830b5aaebad4926c60fa448d",
+    "byteLength": 1654,
+    "invNum": "bb123bb123/16/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|16|bb123bb123|cc123cc123|ss123ss123|50.00",
+    "typeOfInv": "NONCASH"
+  }
+}

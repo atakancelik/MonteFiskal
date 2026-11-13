@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest an improvement within MonteFiskal's scope (no hosted service, latest runtimes only).
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What do you need to do that MonteFiskal does not support?
+    validations:
+      required: true
+  - type: textarea
+    id: rule
+    attributes:
+      label: Fiscal rule
+      description: If the request concerns fiscal behaviour, cite the rule (BR-… in docs/analysis/business-rules.md) or the official source.
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      multiple: true
+      options:
+        - .NET library
+        - PHP core
+        - WooCommerce plugin
+        - Documentation or AI assistant kit

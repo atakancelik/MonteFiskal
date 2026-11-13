@@ -1,0 +1,22 @@
+{
+  "id": "time-winter-001",
+  "kind": "time",
+  "title": "Winter time is +01:00",
+  "source": "S-07; Q-23 default",
+  "status": "derived",
+  "rules": [
+    "BR-I4"
+  ],
+  "openQuestions": [
+    "Q-23"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "instant": "2026-11-13T09:15:30Z",
+    "timeZone": "Europe/Podgorica",
+    "policy": "local"
+  },
+  "expected": {
+    "formatted": "2026-11-13T10:15:30+01:00"
+  }
+}

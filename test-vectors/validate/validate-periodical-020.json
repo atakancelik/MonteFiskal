@@ -1,0 +1,76 @@
+{
+  "id": "validate-periodical-020",
+  "kind": "validate",
+  "title": "Periodic invoice without buyer and tax period",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-K8"
+  ],
+  "openQuestions": [
+    "Q-02"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "now": "2026-11-13T09:15:30Z",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "PERIODICAL",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [],
+      "payments": [
+        {
+          "method": "ACCOUNT",
+          "amount": "24.20"
+        }
+      ],
+      "iicRefs": [
+        {
+          "iic": "22222222222222222222222222222222",
+          "issuedAt": "2026-10-03T10:00:00+02:00",
+          "amount": "24.20"
+        }
+      ],
+      "summaryTotals": {
+        "totalWithoutVat": "20.00",
+        "vatAmount": "4.20",
+        "total": "24.20",
+        "sameTaxes": [
+          {
+            "vatRate": "21",
+            "numberOfItems": 1,
+            "priceBeforeVat": "20.00",
+            "vatAmount": "4.20"
+          }
+        ]
+      }
+    }
+  },
+  "expected": {
+    "valid": false,
+    "findings": [
+      {
+        "rule": "BR-K6",
+        "severity": "warning"
+      },
+      {
+        "rule": "BR-K8",
+        "severity": "error"
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>false</IsPackable>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <RootNamespace>MonteFiskal.CrossSignature</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/dotnet/MonteFiskal/MonteFiskal.csproj" />
+    <ProjectReference Include="../../../src/dotnet/MonteFiskal.Testing/MonteFiskal.Testing.csproj" />
+  </ItemGroup>
+</Project>

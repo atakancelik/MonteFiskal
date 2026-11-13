@@ -1,0 +1,89 @@
+{
+  "id": "xml-periodical-009",
+  "kind": "xml",
+  "title": "Periodic invoice for one month",
+  "source": "derived",
+  "status": "unverified",
+  "rules": [
+    "BR-K6",
+    "BR-K8"
+  ],
+  "openQuestions": [
+    "Q-02"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "PERIODICAL",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "taxPeriod": "10/2026",
+      "supplyPeriod": {
+        "start": "2026-10-01",
+        "end": "2026-10-31"
+      },
+      "buyer": {
+        "idType": "TIN",
+        "idNum": "87654321",
+        "name": "Buyer Test Only DOO"
+      },
+      "lines": [],
+      "payments": [
+        {
+          "method": "ACCOUNT",
+          "amount": "24.20"
+        }
+      ],
+      "iicRefs": [
+        {
+          "iic": "22222222222222222222222222222222",
+          "issuedAt": "2026-10-03T10:00:00+02:00",
+          "amount": "24.20"
+        }
+      ],
+      "summaryTotals": {
+        "totalWithoutVat": "20.00",
+        "vatAmount": "4.20",
+        "total": "24.20",
+        "sameTaxes": [
+          {
+            "vatRate": "21",
+            "numberOfItems": 1,
+            "priceBeforeVat": "20.00",
+            "vatAmount": "4.20"
+          }
+        ]
+      }
+    },
+    "issue": {
+      "ordinal": 9,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "16fd2706-8baf-433b-82eb-8c7fada847da",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"16fd2706-8baf-433b-82eb-8c7fada847da\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/9/2026/cc123cc123\" InvOrdNum=\"9\" InvType=\"PERIODICAL\" IsIssuerInVAT=\"true\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TaxPeriod=\"10/2026\" TotPrice=\"24.20\" TotPriceWoVAT=\"20.00\" TotVATAmt=\"4.20\" TypeOfInv=\"NONCASH\"><SupplyDateOrPeriod End=\"2026-10-31\" Start=\"2026-10-01\"></SupplyDateOrPeriod><PayMethods><PayMethod Amt=\"24.20\" Type=\"ACCOUNT\"></PayMethod></PayMethods><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Buyer IDNum=\"87654321\" IDType=\"TIN\" Name=\"Buyer Test Only DOO\"></Buyer><SameTaxes><SameTax NumOfItems=\"1\" PriceBefVAT=\"20.00\" VATAmt=\"4.20\" VATRate=\"21.00\"></SameTax></SameTaxes><IICRefs><IICRef Amount=\"24.20\" IIC=\"22222222222222222222222222222222\" IssueDateTime=\"2026-10-03T10:00:00+02:00\"></IICRef></IICRefs></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "7b8e34155db1249616b33a93d5592da4ab4c9a890a91526f2fef7f0f0ee054c7",
+    "byteLength": 1729,
+    "invNum": "bb123bb123/9/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|9|bb123bb123|cc123cc123|ss123ss123|24.20",
+    "typeOfInv": "NONCASH"
+  }
+}

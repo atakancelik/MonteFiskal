@@ -1,0 +1,26 @@
+{
+  "id": "url-prod-001",
+  "kind": "url",
+  "title": "Production verification host mapr.tax.gov.me, negative total",
+  "source": "D-07 version table and §3.7.7",
+  "status": "derived",
+  "rules": [
+    "BR-Q4"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "iic": "0123456789ABCDEF0123456789ABCDEF",
+    "issuerTin": "12345678",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "ordinal": 42,
+    "businessUnit": "bb123bb123",
+    "tcr": "cc123cc123",
+    "software": "ss123ss123",
+    "totalPrice": "-1.20",
+    "environment": "production",
+    "encoding": "percent"
+  },
+  "expected": {
+    "url": "https://mapr.tax.gov.me/ic/#/verify?iic=0123456789ABCDEF0123456789ABCDEF&tin=12345678&crtd=2026-11-13T10%3A15%3A30%2B01%3A00&ord=42&bu=bb123bb123&cr=cc123cc123&sw=ss123ss123&prc=-1.20"
+  }
+}

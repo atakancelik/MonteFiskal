@@ -1,0 +1,13 @@
+---
+description: Contributing to MonteFiskal (Montenegro EFI fiscalization): evidence rule, parity rule, secrets
+alwaysApply: true
+---
+
+Read `AGENTS.md` at the repository root for layout and commands.
+
+- Evidence rule: fiscal behaviour only where `docs/analysis/business-rules.md` has a rule; quote the rule ID
+  (`BR-…`) in the code comment and the test name. Missing or UNVERIFIED rule: say so, do not guess, and never
+  use Croatian, Serbian or Albanian rules.
+- Parity rule: .NET and PHP change together, with a shared vector in `test-vectors/`.
+- Money is decimal, never floating point. No production endpoint in tests, samples or CI.
+- Never add certificates, keys, passwords or real taxpayer data. Do not edit `schemas/**/official/`.

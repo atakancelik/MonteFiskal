@@ -1,0 +1,23 @@
+{
+  "id": "number-zero-ordinal-003",
+  "kind": "number",
+  "title": "Ordinal 0 is rejected",
+  "source": "S-10, live XSD InvNumSType",
+  "status": "verified",
+  "rules": [
+    "BR-N1",
+    "BR-N2",
+    "BR-N4"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "businessUnit": "bb123bb123",
+    "ordinal": 0,
+    "issuedAt": "2026-11-13T10:00:00+01:00",
+    "tcr": "cc123cc123",
+    "timeZone": "Europe/Podgorica"
+  },
+  "expected": {
+    "error": "BR-N2"
+  }
+}

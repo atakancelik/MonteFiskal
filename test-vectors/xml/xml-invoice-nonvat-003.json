@@ -1,0 +1,73 @@
+{
+  "id": "xml-invoice-nonvat-003",
+  "kind": "xml",
+  "title": "Seller outside the VAT system",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-V2",
+    "BR-V6"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": false,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "INVOICE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [
+        {
+          "name": "Service",
+          "unit": "kom",
+          "quantity": "1",
+          "unitPrice": "100.00",
+          "vatRate": null,
+          "priceIncludesVat": false
+        },
+        {
+          "name": "Material",
+          "unit": "kom",
+          "quantity": "2",
+          "unitPrice": "7.35",
+          "vatRate": null,
+          "priceIncludesVat": false
+        }
+      ],
+      "payments": [
+        {
+          "method": "BANKNOTE"
+        }
+      ]
+    },
+    "issue": {
+      "ordinal": 3,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "16fd2706-8baf-433b-82eb-8c7fada847da",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"16fd2706-8baf-433b-82eb-8c7fada847da\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/3/2026/cc123cc123\" InvOrdNum=\"3\" InvType=\"INVOICE\" IsIssuerInVAT=\"false\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TotPrice=\"114.70\" TotPriceWoVAT=\"114.70\" TypeOfInv=\"CASH\"><PayMethods><PayMethod Amt=\"114.70\" Type=\"BANKNOTE\"></PayMethod></PayMethods><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Items><I N=\"Service\" PA=\"100.0000\" PB=\"100.0000\" Q=\"1\" U=\"kom\" UPA=\"100.0000\" UPB=\"100.0000\"></I><I N=\"Material\" PA=\"14.7000\" PB=\"14.7000\" Q=\"2\" U=\"kom\" UPA=\"7.3500\" UPB=\"7.3500\"></I></Items></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "c1d9e0179c5c36bc940938fbfd426cb08cd2182788ac2e82e8f13e7da35841b4",
+    "byteLength": 1495,
+    "invNum": "bb123bb123/3/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|3|bb123bb123|cc123cc123|ss123ss123|114.70",
+    "typeOfInv": "CASH"
+  }
+}

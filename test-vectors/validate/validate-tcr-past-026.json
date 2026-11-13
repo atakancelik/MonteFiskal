@@ -1,0 +1,33 @@
+{
+  "id": "validate-tcr-past-026",
+  "kind": "validate",
+  "title": "ValidFrom in the past",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-R4"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "tcr",
+    "today": "2026-11-13",
+    "registration": {
+      "issuerTin": "12345678",
+      "businessUnit": "bb123bb123",
+      "internalId": "1",
+      "software": "ss123ss123",
+      "maintainer": "mm123mm123",
+      "validFrom": "2026-11-12"
+    }
+  },
+  "expected": {
+    "valid": false,
+    "findings": [
+      {
+        "rule": "BR-R4",
+        "severity": "error"
+      }
+    ]
+  }
+}

@@ -1,0 +1,32 @@
+---
+description: Montenegro EFI fiscalization with MonteFiskal (.NET, PHP, WooCommerce): invoices, IKOF, JIKR, corrective invoices, cash deposits
+alwaysApply: false
+---
+
+# MonteFiskal integration
+
+Briefing: https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/ai/context.md
+Prompts: https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/ai/prompts/README.md
+
+## Rules for this task
+
+- Ask the intake questions (https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/ai/questions.md)
+  before writing code. Never ask for a certificate, a key or a password; ask where the application reads them from.
+- Do not invent codes, tax numbers or tax treatment. If a rule is not in the rule book or is not officially settled,
+  say so and give the documented default.
+- Use the test environment and the fake service only. Do not call production.
+- Use the library for IKOF, signing, numbering and XML. Do not reimplement them.
+- Finish with the prompt's verification and show its output.
+
+## Mistakes to avoid
+
+1. Computing the IKOF yourself instead of calling the library (BR-I1).
+2. Floating-point money (BR-A5).
+3. Treating a consumer card payment as non-cash (BR-K3).
+4. Generating a new invoice number on retry (BR-O7).
+5. Sending to production from a test (BR-T1).
+6. Inventing `SoftCode` or `MaintainerCode` (BR-R7).
+7. Storing the certificate in the repository or the web root (BR-S1).
+8. Deleting or updating a fiscalized invoice instead of issuing a corrective (BR-C1).
+9. Applying Croatian, Serbian or Albanian rules.
+10. Skipping the initial cash deposit on a day with cash invoices (BR-D5).

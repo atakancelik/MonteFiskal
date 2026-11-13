@@ -1,0 +1,29 @@
+# MonteFiskal
+
+> Open-source client for Montenegro's EFI fiscalization service (Poreska uprava): .NET 10 library,
+> PHP 8.5 core with the same API, WooCommerce plugin. The taxpayer supplies its own certificate and
+> its own codes from the SEP portal; there is no hosted service and no shared test certificate.
+
+Before writing integration code, ask the developer the questions in "Intake questions". Do not invent
+codes, tax numbers or certificate paths. Use the test environment until the go-live checklist passes.
+Montenegro's rules differ from Croatia's, Serbia's and Albania's; use the rules linked here.
+
+## Start here
+
+- [Briefing for assistants](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/ai/context.md): everything needed for a first integration, one file
+- [Intake questions](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/ai/questions.md): what to ask the developer first
+- [Prompts](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/ai/prompts/README.md): ready-made tasks for .NET, PHP and WooCommerce
+
+## Reference
+
+- [Business rules](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/analysis/business-rules.md): every fiscal rule with its source
+- [Message catalog](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/schemas/fs-v1/2026-11/message-catalog.json): every element, type and limit
+- [Error codes](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/ai/troubleshooting.md): what each code means and what to do
+- [API reference .NET](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/api/dotnet.md)
+- [API reference PHP](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/api/php.md)
+- [WooCommerce setup guide](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/setup-guide.md)
+
+## Optional
+
+- [Open questions](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/analysis/open-questions.md): what is not officially settled
+- [Architecture](https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/analysis/architecture.md)

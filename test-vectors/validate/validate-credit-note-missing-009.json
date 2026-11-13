@@ -1,0 +1,68 @@
+{
+  "id": "validate-credit-note-missing-009",
+  "kind": "validate",
+  "title": "Credit note without references and approvals",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-K6",
+    "BR-K18"
+  ],
+  "openQuestions": [
+    "Q-02"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "now": "2026-11-13T09:15:30Z",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "CREDIT_NOTE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [],
+      "buyer": {
+        "idType": "TIN",
+        "idNum": "87654321",
+        "name": "Buyer Test Only DOO"
+      },
+      "payments": [
+        {
+          "method": "ACCOUNT",
+          "amount": "-1.00"
+        }
+      ],
+      "summaryTotals": {
+        "totalWithoutVat": "-1.00",
+        "vatAmount": "0.00",
+        "total": "-1.00",
+        "sameTaxes": []
+      }
+    }
+  },
+  "expected": {
+    "valid": false,
+    "findings": [
+      {
+        "rule": "BR-K6",
+        "severity": "error"
+      },
+      {
+        "rule": "BR-K6",
+        "severity": "warning"
+      }
+    ]
+  }
+}

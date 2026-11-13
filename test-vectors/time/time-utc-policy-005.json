@@ -1,0 +1,22 @@
+{
+  "id": "time-utc-policy-005",
+  "kind": "time",
+  "title": "UTC policy writes Z",
+  "source": "S-07; Q-23 default",
+  "status": "unverified",
+  "rules": [
+    "BR-I4"
+  ],
+  "openQuestions": [
+    "Q-23"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "instant": "2026-11-13T10:15:30+01:00",
+    "timeZone": "Europe/Podgorica",
+    "policy": "utc"
+  },
+  "expected": {
+    "formatted": "2026-11-13T09:15:30Z"
+  }
+}

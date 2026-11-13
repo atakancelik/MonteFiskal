@@ -1,0 +1,30 @@
+{
+  "id": "xml-tcr-deregister-015",
+  "kind": "xml",
+  "title": "Deregister a TCR with ValidTo = today",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-R3",
+    "BR-R4"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "tcr",
+    "registration": {
+      "issuerTin": "12345678",
+      "businessUnit": "bb123bb123",
+      "internalId": "1",
+      "validTo": "2026-11-13"
+    },
+    "issue": {
+      "uuid": "1b4e28ba-2fa1-41d2-883f-0016d3cca427",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterTCRRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"1b4e28ba-2fa1-41d2-883f-0016d3cca427\"></Header><TCR BusinUnitCode=\"bb123bb123\" IssuerTIN=\"12345678\" TCRIntID=\"1\" ValidTo=\"2026-11-13\"></TCR></RegisterTCRRequest>",
+    "canonicalSha256": "10b8d7c0ee22c8fbbafdc11be926409c9ba5970142e3c03a069686afaab628c2",
+    "byteLength": 302
+  }
+}

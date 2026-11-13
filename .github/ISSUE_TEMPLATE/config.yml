@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or discussion
+    url: https://github.com/atakancelik/MonteFiskal/discussions
+    about: Ask questions about using MonteFiskal in GitHub Discussions.
+  - name: Report a security vulnerability
+    url: https://github.com/atakancelik/MonteFiskal/security/advisories/new
+    about: Report vulnerabilities privately. Never attach certificates, keys or passwords.

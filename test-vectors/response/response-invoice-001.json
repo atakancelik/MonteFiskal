@@ -1,0 +1,25 @@
+{
+  "id": "response-invoice-001",
+  "kind": "response",
+  "title": "Invoice response carries the JIKR (FIC)",
+  "source": "message-catalog.json",
+  "status": "derived",
+  "rules": [
+    "BR-J1",
+    "BR-S6"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "httpStatus": 200,
+    "body": "<env:Envelope xmlns:env=\"http://schemas.xmlsoap.org/soap/envelope/\"><env:Header/><env:Body><RegisterInvoiceResponse xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Response\" Version=\"1\"><Header RequestUUID=\"3f2a1c4e-8b7d-4e21-9a6f-0c5d2e8b1a47\" SendDateTime=\"2026-11-13T10:15:32+01:00\" UUID=\"c56a4180-65aa-42ec-a945-5fd21dec0538\"/><FIC>a8098c1a-f86e-41da-bd1a-00c04fd430c8</FIC></RegisterInvoiceResponse></env:Body></env:Envelope>",
+    "verifySignature": false
+  },
+  "expected": {
+    "element": "RegisterInvoiceResponse",
+    "result": "a8098c1a-f86e-41da-bd1a-00c04fd430c8",
+    "requestUuid": "3f2a1c4e-8b7d-4e21-9a6f-0c5d2e8b1a47",
+    "responseUuid": "c56a4180-65aa-42ec-a945-5fd21dec0538",
+    "sendDateTime": "2026-11-13T10:15:32+01:00",
+    "signaturePresent": false
+  }
+}

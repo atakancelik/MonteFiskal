@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/atakancelik/MonteFiskal/test-vectors/schema/vector.schema.json",
+  "title": "MonteFiskal test vector",
+  "description": "Common envelope of every file in test-vectors/. The content of input and expected depends on kind; see test-vectors/README.md.",
+  "type": "object",
+  "required": ["id", "kind", "title", "source", "status", "schemaRevision", "input", "expected"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Equal to the file name without .json." },
+    "kind": { "enum": ["iic", "url", "number", "time", "amounts", "xml", "validate", "fault", "response", "offline", "qr", "report"] },
+    "title": { "type": "string", "minLength": 1 },
+    "source": { "type": "string", "minLength": 1, "description": "Source ID with section (for example D-01 §4.3.2) or 'derived'." },
+    "status": { "enum": ["verified", "derived", "unverified"] },
+    "rules": { "type": "array", "items": { "type": "string", "pattern": "^(BR-[A-Z]+[0-9]*[a-z]?|SCHEMA)$" } },
+    "openQuestions": { "type": "array", "items": { "type": "string", "pattern": "^Q-[0-9]{2}$" } },
+    "schemaRevision": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "input": { "type": "object" },
+    "expected": { "type": "object" }
+  }
+}

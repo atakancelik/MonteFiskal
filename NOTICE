@@ -1,0 +1,39 @@
+MonteFiskal
+Copyright (c) 2026 Deveng Group DOO and MonteFiskal contributors
+
+This product includes no third-party source code in its libraries, plugin or tools.
+
+Reference projects were read for behaviour only; no code was copied from any of them:
+  - OpenMicroFiscal (https://github.com/dalrankov/OpenMicroFiscal), Apache-2.0
+  - woocommerce-racuni-fiskalizacija (https://github.com/ne-znam/woocommerce-racuni-fiskalizacija), GPL
+  - invoice-ninja-montenegro (https://github.com/robinhud993/invoice-ninja-montenegro),
+    Elastic License 2.0 (not open source; not used as a code source in any way)
+No certificate, key or password from any of these projects is used or referenced.
+
+Official files bundled unmodified (not covered by MonteFiskal's licences):
+  - schemas/fs-v1/*/official/eficg-fiscalization-service.xsd and FiscalizationService.wsdl,
+    published by the Tax Administration of Montenegro (Poreska uprava)
+  - schemas/fs-v1/*/official/xmldsig-core-schema.xsd, W3C XML Signature schema
+See schemas/fs-v1/<revision>/PROVENANCE.md.
+
+Run-time dependencies
+  .NET library (NuGet), only in the packages named:
+    MonteFiskal                                    none beyond the .NET 10 base class library and
+                                                   System.Security.Cryptography.Xml (MIT, Microsoft)
+    MonteFiskal.Extensions.DependencyInjection     Microsoft.Extensions.* (MIT, Microsoft)
+    MonteFiskal.Storage.EntityFrameworkCore        Microsoft.EntityFrameworkCore (MIT, Microsoft)
+    all other packages                             none
+  PHP core (Composer): no required package; psr/http-client and psr/http-factory
+    (MIT, PHP-FIG) only when Psr18Transport is used
+  WooCommerce plugin: the PHP core above, vendored in the release zip; WordPress and
+    WooCommerce are provided by the site.
+
+Development-only tools (not distributed): xUnit, Microsoft.NET.Test.Sdk, PHPUnit, PHPStan,
+PHP_CodeSniffer; see the project files for versions and licences.
+
+The QR code encoder and the PNG writer are MonteFiskal's own implementation of
+ISO/IEC 18004 and of the PNG specification. "QR Code" is a registered trademark of
+DENSO WAVE INCORPORATED.
+
+The wordmark in assets/brand/logo-wordmark*.svg and the brand images use outlines of the
+Inter typeface by Rasmus Andersson, licensed under the SIL Open Font License 1.1.

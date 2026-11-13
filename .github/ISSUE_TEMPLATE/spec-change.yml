@@ -1,0 +1,60 @@
+name: Specification change
+description: The EFI service, schema, error codes, URLs or rules changed, or the service rejects messages that used to be accepted.
+title: "spec-change: "
+labels: ["spec-change"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Please **remove all taxpayer data** before submitting: tax numbers (PIB/JMB), names, addresses,
+        certificate contents, signature values. Never attach a certificate, private key or password.
+  - type: dropdown
+    id: what
+    attributes:
+      label: What changed
+      multiple: true
+      options:
+        - Schema (XSD or WSDL)
+        - Error code or fault text
+        - Business rule
+        - Endpoint or verification URL
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Official link (Tax Administration page or document), live schema digest (`python3 tools/catalog/drift_check.py`), fault string and code.
+    validations:
+      required: true
+  - type: input
+    id: observed
+    attributes:
+      label: Date observed
+      placeholder: "YYYY-MM-DD"
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Environment
+      options:
+        - Test (efitest.tax.gov.me)
+        - Production (efi.tax.gov.me)
+    validations:
+      required: true
+  - type: textarea
+    id: nodes
+    attributes:
+      label: Affected catalog nodes
+      description: XPaths from schemas/fs-v1/<revision>/message-catalog.json, if known.
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Data protection
+      options:
+        - label: I have removed all taxpayer data (tax numbers, names, addresses, certificate and signature values).
+          required: true
+        - label: I have not attached any certificate, private key or password.
+          required: true

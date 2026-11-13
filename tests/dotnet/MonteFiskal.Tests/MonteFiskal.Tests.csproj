@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsTestProject>true</IsTestProject>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <NoWarn>$(NoWarn);CA1515;CA1707;CA2007;xUnit1026</NoWarn>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="xunit.v3" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../../src/dotnet/MonteFiskal/MonteFiskal.csproj" />
+    <ProjectReference Include="../../../src/dotnet/MonteFiskal.Testing/MonteFiskal.Testing.csproj" />
+    <ProjectReference Include="../../../src/dotnet/MonteFiskal.Rendering/MonteFiskal.Rendering.csproj" />
+    <ProjectReference Include="../../../src/dotnet/MonteFiskal.Reports/MonteFiskal.Reports.csproj" />
+    <ProjectReference Include="../../../src/dotnet/MonteFiskal.Storage.FileSystem/MonteFiskal.Storage.FileSystem.csproj" />
+    <ProjectReference Include="../../../src/dotnet/MonteFiskal.Storage.EntityFrameworkCore/MonteFiskal.Storage.EntityFrameworkCore.csproj" />
+    <ProjectReference Include="../../../src/dotnet/MonteFiskal.Extensions.DependencyInjection/MonteFiskal.Extensions.DependencyInjection.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+</Project>

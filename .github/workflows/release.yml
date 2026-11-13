@@ -1,0 +1,62 @@
+name: release
+
+on:
+  push:
+    tags: ["v*.*.*"]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-dotnet@0f4a354dd5547a28c70b7853dbd95d5b67886e73 # v6.1.0
+        with:
+          global-json-file: global.json
+      - uses: shivammathur/setup-php@eb7c497e18156a6bbabfef1d3a82760b9eda3962 # 2.40.0
+        with:
+          php-version: "8.5"
+          extensions: bcmath, dom, mbstring, openssl, zip, sodium
+          coverage: none
+      - name: Version from the tag
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> "$GITHUB_ENV"
+      - name: Plugin header matches the tag
+        run: |
+          grep -q "const MONTEFISKAL_WC_VERSION = '$VERSION';" plugins/montefiskal-woocommerce/montefiskal-woocommerce.php
+      - name: Release note states whether fiscal behaviour changed
+        run: |
+          grep -A40 "^## \[$VERSION\]" CHANGELOG.md | grep -Eq "^Fiscal behaviour changed: (yes|no)"
+      - name: NuGet packages
+        run: dotnet pack MonteFiskal.slnx -c Release -p:Version=$VERSION -o dist
+      - name: Plugin zip
+        run: tools/plugin/build-zip.sh dist
+      - name: Checksums
+        run: cd dist && sha256sum *.nupkg *.snupkg *.zip > SHA256SUMS
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release
+          path: dist
+          if-no-files-found: error
+
+  publish:
+    runs-on: ubuntu-24.04
+    needs: build
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release
+          path: dist
+      - uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
+        with:
+          draft: true
+          files: dist/*
+          generate_release_notes: false
+          body: |
+            See CHANGELOG.md for the release note, including whether fiscal behaviour changed.
+            The Composer package montefiskal/core is this tag. NuGet packages are attached and pushed by hand after review.

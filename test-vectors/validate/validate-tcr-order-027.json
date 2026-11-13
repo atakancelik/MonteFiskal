@@ -1,0 +1,34 @@
+{
+  "id": "validate-tcr-order-027",
+  "kind": "validate",
+  "title": "ValidTo before ValidFrom",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-R4"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "tcr",
+    "today": "2026-11-13",
+    "registration": {
+      "issuerTin": "12345678",
+      "businessUnit": "bb123bb123",
+      "internalId": "1",
+      "software": "ss123ss123",
+      "maintainer": "mm123mm123",
+      "validFrom": "2026-11-20",
+      "validTo": "2026-11-15"
+    }
+  },
+  "expected": {
+    "valid": false,
+    "findings": [
+      {
+        "rule": "BR-R4",
+        "severity": "error"
+      }
+    ]
+  }
+}

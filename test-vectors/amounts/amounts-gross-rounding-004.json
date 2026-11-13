@@ -1,0 +1,122 @@
+{
+  "id": "amounts-gross-rounding-004",
+  "kind": "amounts",
+  "title": "Gross lines whose net parts round apart; the charged total is preserved",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-A5",
+    "BR-A6",
+    "BR-A7"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": true,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Item 1",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "9.99",
+        "vatRate": "21",
+        "priceIncludesVat": true
+      },
+      {
+        "name": "Item 2",
+        "unit": "kom",
+        "quantity": "3",
+        "unitPrice": "0.99",
+        "vatRate": "21",
+        "priceIncludesVat": true
+      },
+      {
+        "name": "Item 3",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "4.49",
+        "vatRate": "7",
+        "priceIncludesVat": true
+      },
+      {
+        "name": "Shipping",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "3.50",
+        "vatRate": "21",
+        "priceIncludesVat": true
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Item 1",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "8.2562",
+        "UPA": "9.9900",
+        "PB": "8.2562",
+        "VR": "21.00",
+        "VA": "1.7338",
+        "PA": "9.9900"
+      },
+      {
+        "N": "Item 2",
+        "U": "kom",
+        "Q": "3",
+        "UPB": "0.8182",
+        "UPA": "0.9900",
+        "PB": "2.4545",
+        "VR": "21.00",
+        "VA": "0.5155",
+        "PA": "2.9700"
+      },
+      {
+        "N": "Item 3",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "4.1963",
+        "UPA": "4.4900",
+        "PB": "4.1963",
+        "VR": "7.00",
+        "VA": "0.2937",
+        "PA": "4.4900"
+      },
+      {
+        "N": "Shipping",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "2.8926",
+        "UPA": "3.5000",
+        "PB": "2.8926",
+        "VR": "21.00",
+        "VA": "0.6074",
+        "PA": "3.5000"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "17.80",
+      "TotVATAmt": "3.15",
+      "TotPrice": "20.95"
+    },
+    "sameTaxes": [
+      {
+        "NumOfItems": "3",
+        "PriceBefVAT": "13.60",
+        "VATRate": "21.00",
+        "VATAmt": "2.86"
+      },
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "4.20",
+        "VATRate": "7.00",
+        "VATAmt": "0.29"
+      }
+    ]
+  }
+}

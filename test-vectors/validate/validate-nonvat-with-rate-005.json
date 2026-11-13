@@ -1,0 +1,59 @@
+{
+  "id": "validate-nonvat-with-rate-005",
+  "kind": "validate",
+  "title": "Seller outside VAT must not send a VAT rate",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-V2",
+    "BR-V6"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "now": "2026-11-13T09:15:30Z",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": false,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "INVOICE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [
+        {
+          "name": "Test item",
+          "unit": "kom",
+          "quantity": "1",
+          "unitPrice": "12.10",
+          "vatRate": "21",
+          "priceIncludesVat": true
+        }
+      ],
+      "payments": [
+        {
+          "method": "CARD"
+        }
+      ]
+    }
+  },
+  "expected": {
+    "valid": false,
+    "findings": [
+      {
+        "rule": "BR-V6",
+        "severity": "error"
+      }
+    ]
+  }
+}

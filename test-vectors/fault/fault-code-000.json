@@ -1,0 +1,25 @@
+{
+  "id": "fault-code-000",
+  "kind": "fault",
+  "title": "Fault with code 0",
+  "source": "derived",
+  "status": "derived",
+  "rules": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "httpStatus": 500,
+    "contentType": "text/xml; charset=UTF-8",
+    "body": "<env:Envelope xmlns:env=\"http://schemas.xmlsoap.org/soap/envelope/\"><env:Header/><env:Body><env:Fault><faultcode>env:CLIENT</faultcode><faultstring>Exception during size check.</faultstring><detail><code>0</code><requestUUID>78dde160-2b33-40e4-98fa-f6a2c34475a3</requestUUID><responseUUID>9416dcca-499a-4724-933d-40d115ea4fc7</responseUUID></detail></env:Fault></env:Body></env:Envelope>"
+  },
+  "expected": {
+    "outcome": "fault",
+    "code": 0,
+    "class": "malformed",
+    "retryable": false,
+    "blocking": true,
+    "faultCode": "CLIENT",
+    "faultString": "Exception during size check.",
+    "requestUuid": "78dde160-2b33-40e4-98fa-f6a2c34475a3",
+    "responseUuid": "9416dcca-499a-4724-933d-40d115ea4fc7"
+  }
+}

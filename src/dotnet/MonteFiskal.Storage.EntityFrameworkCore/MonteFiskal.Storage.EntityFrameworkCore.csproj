@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MonteFiskal.Storage.EntityFrameworkCore</RootNamespace>
+    <IsPackable>true</IsPackable>
+    <Description>Durable outbox and gap-free sequence allocator for MonteFiskal on Entity Framework Core (BR-N5): the ordinal and the stored request are written in one transaction with optimistic concurrency.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../MonteFiskal/MonteFiskal.csproj" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" />
+  </ItemGroup>
+</Project>

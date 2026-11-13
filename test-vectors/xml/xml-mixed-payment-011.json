@@ -1,0 +1,78 @@
+{
+  "id": "xml-mixed-payment-011",
+  "kind": "xml",
+  "title": "Two payment methods on one cash invoice",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-K2",
+    "BR-K4"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "message": "invoice",
+    "profile": {
+      "issuerTin": "12345678",
+      "issuerName": "MonteFiskal Test Only DOO",
+      "issuerAddress": "Test Street 1",
+      "issuerTown": "Podgorica",
+      "issuerCountry": "MNE",
+      "issuerInVat": true,
+      "businessUnit": "bb123bb123",
+      "tcr": "cc123cc123",
+      "software": "ss123ss123",
+      "operator": "oo123oo123",
+      "maintainer": "mm123mm123",
+      "timeZone": "Europe/Podgorica"
+    },
+    "draft": {
+      "kind": "INVOICE",
+      "issuedAt": "2026-11-13T09:15:30Z",
+      "lines": [
+        {
+          "name": "Item A",
+          "unit": "kom",
+          "quantity": "1",
+          "unitPrice": "30.00",
+          "vatRate": "21",
+          "priceIncludesVat": true
+        },
+        {
+          "name": "Item B",
+          "unit": "kom",
+          "quantity": "2",
+          "unitPrice": "10.00",
+          "vatRate": "7",
+          "priceIncludesVat": true
+        }
+      ],
+      "payments": [
+        {
+          "method": "BANKNOTE",
+          "amount": "20.00"
+        },
+        {
+          "method": "CARD",
+          "amount": "30.00"
+        }
+      ]
+    },
+    "issue": {
+      "ordinal": 11,
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "iicSignature": "ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB",
+      "uuid": "c56a4180-65aa-42ec-a945-5fd21dec0538",
+      "sendDateTime": "2026-11-13T09:15:31Z"
+    }
+  },
+  "expected": {
+    "unsignedXml": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"c56a4180-65aa-42ec-a945-5fd21dec0538\"></Header><Invoice BusinUnitCode=\"bb123bb123\" IIC=\"0123456789ABCDEF0123456789ABCDEF\" IICSignature=\"ABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABABAB\" InvNum=\"bb123bb123/11/2026/cc123cc123\" InvOrdNum=\"11\" InvType=\"INVOICE\" IsIssuerInVAT=\"true\" IssueDateTime=\"2026-11-13T10:15:30+01:00\" OperatorCode=\"oo123oo123\" SoftCode=\"ss123ss123\" TCRCode=\"cc123cc123\" TotPrice=\"50.00\" TotPriceWoVAT=\"43.48\" TotVATAmt=\"6.52\" TypeOfInv=\"CASH\"><PayMethods><PayMethod Amt=\"20.00\" Type=\"BANKNOTE\"></PayMethod><PayMethod Amt=\"30.00\" Type=\"CARD\"></PayMethod></PayMethods><Seller Address=\"Test Street 1\" Country=\"MNE\" IDNum=\"12345678\" IDType=\"TIN\" Name=\"MonteFiskal Test Only DOO\" Town=\"Podgorica\"></Seller><Items><I N=\"Item A\" PA=\"30.0000\" PB=\"24.7934\" Q=\"1\" U=\"kom\" UPA=\"30.0000\" UPB=\"24.7934\" VA=\"5.2066\" VR=\"21.00\"></I><I N=\"Item B\" PA=\"20.0000\" PB=\"18.6916\" Q=\"2\" U=\"kom\" UPA=\"10.0000\" UPB=\"9.3458\" VA=\"1.3084\" VR=\"7.00\"></I></Items><SameTaxes><SameTax NumOfItems=\"1\" PriceBefVAT=\"24.79\" VATAmt=\"5.21\" VATRate=\"21.00\"></SameTax><SameTax NumOfItems=\"1\" PriceBefVAT=\"18.69\" VATAmt=\"1.31\" VATRate=\"7.00\"></SameTax></SameTaxes></Invoice></RegisterInvoiceRequest>",
+    "canonicalSha256": "cb448fe3571c184b95f82a522d37f4465f0cf12e2dba784545aaf513d86fcd6d",
+    "byteLength": 1786,
+    "invNum": "bb123bb123/11/2026/cc123cc123",
+    "issueDateTime": "2026-11-13T10:15:30+01:00",
+    "iicConcat": "12345678|2026-11-13T10:15:30+01:00|11|bb123bb123|cc123cc123|ss123ss123|50.00",
+    "typeOfInv": "CASH"
+  }
+}

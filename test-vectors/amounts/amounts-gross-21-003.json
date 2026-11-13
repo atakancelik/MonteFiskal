@@ -1,0 +1,58 @@
+{
+  "id": "amounts-gross-21-003",
+  "kind": "amounts",
+  "title": "Web-shop line priced with VAT included",
+  "source": "derived from BR-A5 to BR-A7 (R-01 production behaviour as default)",
+  "status": "derived",
+  "rules": [
+    "BR-A5",
+    "BR-A7"
+  ],
+  "openQuestions": [
+    "Q-14"
+  ],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "issuerInVat": true,
+    "itemDecimals": 4,
+    "rounding": "halfAwayFromZero",
+    "lines": [
+      {
+        "name": "Gross item",
+        "unit": "kom",
+        "quantity": "1",
+        "unitPrice": "12.10",
+        "vatRate": "21",
+        "priceIncludesVat": true
+      }
+    ]
+  },
+  "expected": {
+    "items": [
+      {
+        "N": "Gross item",
+        "U": "kom",
+        "Q": "1",
+        "UPB": "10.0000",
+        "UPA": "12.1000",
+        "PB": "10.0000",
+        "VR": "21.00",
+        "VA": "2.1000",
+        "PA": "12.1000"
+      }
+    ],
+    "totals": {
+      "TotPriceWoVAT": "10.00",
+      "TotVATAmt": "2.10",
+      "TotPrice": "12.10"
+    },
+    "sameTaxes": [
+      {
+        "NumOfItems": "1",
+        "PriceBefVAT": "10.00",
+        "VATRate": "21.00",
+        "VATAmt": "2.10"
+      }
+    ]
+  }
+}

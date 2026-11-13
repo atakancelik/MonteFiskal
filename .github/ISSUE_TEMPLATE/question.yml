@@ -1,0 +1,22 @@
+name: Question
+description: Short question about usage. Longer discussions belong in GitHub Discussions.
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Most questions are answered faster in [Discussions](https://github.com/atakancelik/MonteFiskal/discussions).
+        MonteFiskal cannot give tax or accounting advice; your accountant decides the invoicing mode and VAT treatment.
+  - type: textarea
+    id: question
+    attributes:
+      label: Question
+    validations:
+      required: true
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Data protection
+      options:
+        - label: My question contains no certificate, key, password or real taxpayer data.
+          required: true
