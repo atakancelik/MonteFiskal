@@ -1,12 +1,11 @@
 # PHP API reference
 
 > MonteFiskal 0.1.0, PHP 8.5 with bcmath, dom, libxml, mbstring and openssl (curl for `CurlTransport`, zip for the
-> offline exchange, pdo for `PdoOutboxStore`). Package `montefiskal/core`, namespace `MonteFiskal`. The API mirrors the
+> offline exchange, pdo for `PdoOutboxStore`). Composer name `montefiskal/core`, namespace `MonteFiskal`. The API mirrors the
 > [.NET API](dotnet.md) method for method; both pass the same test vectors.
 
-```sh
-composer require montefiskal/core
-```
+Published on GitHub only: add `https://github.com/atakancelik/MonteFiskal` as a Composer `vcs` repository and require
+`montefiskal/core` (see the [setup guide](../setup-guide.md#php)).
 
 ## Money
 

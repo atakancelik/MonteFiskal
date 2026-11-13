@@ -32,8 +32,8 @@ certificate and your own codes from the SEP portal. Nothing is sent anywhere exc
 
 | Component | For | Install |
 |---|---|---|
-| [.NET library](src/dotnet/README.md) | .NET 10 applications, point of sale, ERP | NuGet `MonteFiskal` and companion packages |
-| [PHP core](docs/api/php.md) | PHP 8.5 applications | `composer require montefiskal/core` |
+| [.NET library](src/dotnet/README.md) | .NET 10 applications, point of sale, ERP | Project reference to `src/dotnet/` from a clone of this repository |
+| [PHP core](docs/api/php.md) | PHP 8.5 applications | Composer, with this repository as a VCS source |
 | [WooCommerce plugin](plugins/montefiskal-woocommerce/readme.txt) | WordPress 7.1 shops with WooCommerce 11.3 | Release zip from [GitHub releases](https://github.com/atakancelik/MonteFiskal/releases) |
 
 All three share the same test vectors, so .NET and PHP produce byte-identical requests for the same input.
@@ -116,7 +116,8 @@ $sent = $client->send($issued->id);
 echo "{$issued->number} IKOF {$issued->iic} JIKR {$sent->fic}\n";
 ```
 
-Both run as they are. For the test service (efitest) and production, follow the [setup guide](docs/setup-guide.md).
+Install from this repository: MonteFiskal is published on GitHub only, not on NuGet or Packagist. How to add it to
+your project is in the [setup guide](docs/setup-guide.md#4-install). Both quick starts run as they are. For the test service (efitest) and production, follow the [setup guide](docs/setup-guide.md).
 
 ## Before you go live
 

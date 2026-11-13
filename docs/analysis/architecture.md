@@ -253,7 +253,7 @@ AGENTS.md  CLAUDE.md  llms.txt          new: instruction files for coding assist
 | `schema-drift` | daily schedule | compare live WSDL/XSD digests with `schemas/`; open a "spec-change" issue on difference |
 | `secret-scan` | push, pull request | block commits containing private keys, PKCS#12 files or passwords; fail on files with certificate extensions anywhere in the tree |
 | `ai-kit` | push, pull request | regenerate `docs/ai/context.md` and `docs/ai/troubleshooting.md` and fail on a difference; compile or run every code block of the prompts and the briefing; check that examples contain placeholders only, that every `BR-` and `Q-` reference and every link resolves, that `CLAUDE.md` imports `AGENTS.md`, that Cursor rules are `.mdc` with front matter and that `llms.txt` follows the format (ai-assistant-kit.md §9) |
-| `release` | tag | NuGet packages, Composer package tag, plugin zip attached to the GitHub release, checksums |
+| `release` | tag | Plugin zip attached to the GitHub release, checksums; .NET and PHP are used from source (GitHub only) |
 
 All third-party actions pinned by commit; least-privilege `permissions` per workflow.
 

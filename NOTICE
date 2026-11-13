@@ -17,13 +17,13 @@ Official files bundled unmodified (not covered by MonteFiskal's licences):
 See schemas/fs-v1/<revision>/PROVENANCE.md.
 
 Run-time dependencies
-  .NET library (NuGet), only in the packages named:
+  .NET library, only in the projects named:
     MonteFiskal                                    none beyond the .NET 10 base class library and
                                                    System.Security.Cryptography.Xml (MIT, Microsoft)
     MonteFiskal.Extensions.DependencyInjection     Microsoft.Extensions.* (MIT, Microsoft)
     MonteFiskal.Storage.EntityFrameworkCore        Microsoft.EntityFrameworkCore (MIT, Microsoft)
     all other packages                             none
-  PHP core (Composer): no required package; psr/http-client and psr/http-factory
+  PHP core: no required package; psr/http-client and psr/http-factory
     (MIT, PHP-FIG) only when Psr18Transport is used
   WooCommerce plugin: the PHP core above, vendored in the release zip; WordPress and
     WooCommerce are provided by the site.

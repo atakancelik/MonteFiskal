@@ -26,8 +26,9 @@ Rules for this task:
 ## Task
 
 ```text
-Add the packages MonteFiskal and MonteFiskal.Extensions.DependencyInjection (and
-MonteFiskal.Storage.EntityFrameworkCore for a durable store). Bind the configuration section
+Add project references to MonteFiskal and MonteFiskal.Extensions.DependencyInjection (and
+MonteFiskal.Storage.EntityFrameworkCore for a durable store) from a clone of the GitHub repository;
+MonteFiskal is not on NuGet. Bind the configuration section
 "MonteFiskal" with services.AddMonteFiskal(configuration); the certificate path comes from
 configuration and the password from an environment variable or secret store. Issue and send one
 invoice built from my order type <type>; store the invoice number, IKOF, JIKR and verification URL

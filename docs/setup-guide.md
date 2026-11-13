@@ -52,11 +52,17 @@ Use the test environment's SEP to get test codes first; production codes are reg
 
 ### .NET
 
+MonteFiskal is published on GitHub only. Clone it (or add it as a git submodule) at a release tag and reference the
+projects you need:
+
 ```sh
-dotnet add package MonteFiskal
-dotnet add package MonteFiskal.Extensions.DependencyInjection
-dotnet add package MonteFiskal.Storage.EntityFrameworkCore   # durable outbox and numbering
+git clone --branch v0.1.0 https://github.com/atakancelik/MonteFiskal.git third_party/MonteFiskal
+dotnet add reference third_party/MonteFiskal/src/dotnet/MonteFiskal/MonteFiskal.csproj
+dotnet add reference third_party/MonteFiskal/src/dotnet/MonteFiskal.Extensions.DependencyInjection/MonteFiskal.Extensions.DependencyInjection.csproj
+dotnet add reference third_party/MonteFiskal/src/dotnet/MonteFiskal.Storage.EntityFrameworkCore/MonteFiskal.Storage.EntityFrameworkCore.csproj   # durable outbox and numbering
 ```
+
+If you prefer packages in your own feed, `dotnet pack MonteFiskal.slnx -c Release` builds them.
 
 `appsettings.json` (values are placeholders; the password is not here):
 
@@ -84,9 +90,16 @@ Register with `services.AddMonteFiskal(configuration.GetSection("MonteFiskal"))`
 
 ### PHP
 
-```sh
-composer require montefiskal/core
+MonteFiskal is published on GitHub only. Add this repository as a Composer VCS source in your `composer.json`:
+
+```json
+{
+  "repositories": [{ "type": "vcs", "url": "https://github.com/atakancelik/MonteFiskal" }],
+  "require": { "montefiskal/core": "^0.1" }
+}
 ```
+
+Then run `composer update montefiskal/core`. A `path` repository pointing at a local clone works the same way.
 
 Use `CurlTransport` (or `Psr18Transport` with your PSR-18 client) and `PdoOutboxStore` on MySQL, MariaDB, PostgreSQL or
 SQLite. See the [PHP API](api/php.md).

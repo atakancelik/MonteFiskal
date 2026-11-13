@@ -30,12 +30,10 @@ jobs:
       - name: Release note states whether fiscal behaviour changed
         run: |
           grep -A40 "^## \[$VERSION\]" CHANGELOG.md | grep -Eq "^Fiscal behaviour changed: (yes|no)"
-      - name: NuGet packages
-        run: dotnet pack MonteFiskal.slnx -c Release -p:Version=$VERSION -o dist
       - name: Plugin zip
         run: tools/plugin/build-zip.sh dist
       - name: Checksums
-        run: cd dist && sha256sum *.nupkg *.snupkg *.zip > SHA256SUMS
+        run: cd dist && sha256sum *.zip > SHA256SUMS
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: release
@@ -59,4 +57,4 @@ jobs:
           generate_release_notes: false
           body: |
             See CHANGELOG.md for the release note, including whether fiscal behaviour changed.
-            The Composer package montefiskal/core is this tag. NuGet packages are attached and pushed by hand after review.
+            Distributed through GitHub only: use the source at this tag (.NET project references, Composer vcs repository) or the plugin zip.

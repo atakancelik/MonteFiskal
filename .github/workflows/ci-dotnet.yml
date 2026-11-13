@@ -35,13 +35,6 @@ jobs:
         run: dotnet test --project tests/dotnet/MonteFiskal.Tests -c Release --no-build
       - name: efitest scenarios compile and skip without secrets
         run: dotnet test --project tests/dotnet/MonteFiskal.IntegrationTests -c Release --no-build
-      - name: Pack
-        run: dotnet pack MonteFiskal.slnx -c Release --no-build -o ${{ runner.temp }}/nupkg
-      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: nuget-packages
-          path: ${{ runner.temp }}/nupkg
-          if-no-files-found: error
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: dotnet-vector-log

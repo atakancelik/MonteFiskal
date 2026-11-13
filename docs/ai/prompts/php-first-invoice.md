@@ -26,7 +26,8 @@ Rules for this task:
 ## Task
 
 ```text
-Require montefiskal/core with Composer. Read the certificate with
+Require montefiskal/core with Composer, with the GitHub repository as a vcs source (it is not on
+Packagist). Read the certificate with
 Pkcs12CertificateProvider::fromEnvironment() (MONTEFISKAL_CERT_PATH and MONTEFISKAL_CERT_PASSWORD).
 Use CurlTransport, or Psr18Transport with my PSR-18 client, against FiscalEndpoints for the test
 environment. Store requests in PdoOutboxStore on my database (call createSchema() once). Issue and

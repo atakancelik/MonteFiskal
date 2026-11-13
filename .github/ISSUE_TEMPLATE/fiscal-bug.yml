@@ -14,7 +14,7 @@ body:
     attributes:
       label: Component
       options:
-        - .NET library (NuGet MonteFiskal*)
+        - .NET library
         - PHP core (montefiskal/core)
         - WooCommerce plugin
     validations:

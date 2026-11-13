@@ -3,7 +3,10 @@
 Fiscalization of invoices with the Montenegrin EFI service (Tax Administration of Montenegro). It handles the request, the
 IKOF and the XML signature, sends the request, retries it, and returns the JIKR. Built for .NET 10.
 
-| Package | What it contains |
+Published on GitHub only, not on NuGet: reference the projects under `src/dotnet/` from a clone of
+https://github.com/atakancelik/MonteFiskal (see `docs/setup-guide.md`).
+
+| Project | What it contains |
 |---|---|
 | `MonteFiskal` | Client, model, calculation, IKOF, XML signature, validation, transport, outbox, error catalog |
 | `MonteFiskal.Extensions.DependencyInjection` | `AddMonteFiskal(...)`, typed HTTP client, background resend |

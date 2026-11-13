@@ -3,9 +3,9 @@
 > MonteFiskal 0.1.0, .NET 10. Namespaces start with `MonteFiskal`. Every public member has XML documentation in the
 > packages; this page is the map. Rule IDs point to the [rule book](../analysis/business-rules.md).
 
-## Packages
+## Projects
 
-| Package | Main types |
+| Project | Main types |
 |---|---|
 | `MonteFiskal` | `FiscalClient`, `IFiscalClient`, `FiscalProfile`, `MonteFiskalOptions`, model (`MonteFiskal.Model`), `Pkcs12CertificateProvider`, `HttpFiscalTransport`, `FiscalEndpoints`, `InMemoryOutboxStore`, `ErrorCatalog` |
 | `MonteFiskal.Extensions.DependencyInjection` | `AddMonteFiskal(...)`, `MonteFiskalSettings`, `ResendBackgroundService` |
