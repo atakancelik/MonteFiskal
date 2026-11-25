@@ -26,8 +26,9 @@ No message sent to the Tax Administration changed, so installations keep their r
 
 ### Changed
 
-- The release workflow publishes the release itself (pre-release for 0.x) and can also be run by hand from `main`
-  (`workflow_dispatch` with the version), which creates the tag.
+- The release workflow publishes the release itself (pre-release for 0.x). Besides a pushed tag, it also runs when a
+  version bump reaches `main` (the plugin header names a version without a tag) and when run by hand from `main`; in
+  both cases it creates the tag.
 
 ### Fixed
 
