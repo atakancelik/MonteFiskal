@@ -24,6 +24,11 @@ No message sent to the Tax Administration changed, so installations keep their r
 - .NET: `FiscalClient.SignForExportAsync` and `OfflineExchange.ExportAsync`.
 - Shared test vectors `test-vectors/pair/` (six cases) run by both languages.
 
+### Changed
+
+- The release workflow publishes the release itself (pre-release for 0.x) and can also be run by hand from `main`
+  (`workflow_dispatch` with the version), which creates the tag.
+
 ### Fixed
 
 - The offline exchange did not keep everything BR-X2 asks for: the request signed for the export and the response
