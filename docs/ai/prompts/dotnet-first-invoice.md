@@ -1,13 +1,13 @@
 # .NET: first invoice
 
-> Targets MonteFiskal 0.1.0. When to use: a new .NET integration.
+> Targets MonteFiskal 0.2.0. When to use: a new .NET integration.
 
 Paste the common frame, then the task. Fill in the angle brackets yourself.
 
 ## Common frame
 
 ```text
-You are helping me integrate MonteFiskal 0.1.0 (Montenegro EFI fiscalization) into my project.
+You are helping me integrate MonteFiskal 0.2.0 (Montenegro EFI fiscalization) into my project.
 
 Read first: https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/llms.txt and the briefing it links to. If you cannot fetch URLs, tell me and I
 will paste docs/ai/context.md.

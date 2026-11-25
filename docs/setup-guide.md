@@ -56,7 +56,7 @@ MonteFiskal is published on GitHub only. Clone it (or add it as a git submodule)
 projects you need:
 
 ```sh
-git clone --branch v0.1.0 https://github.com/atakancelik/MonteFiskal.git third_party/MonteFiskal
+git clone --branch v0.2.0 https://github.com/atakancelik/MonteFiskal.git third_party/MonteFiskal
 dotnet add reference third_party/MonteFiskal/src/dotnet/MonteFiskal/MonteFiskal.csproj
 dotnet add reference third_party/MonteFiskal/src/dotnet/MonteFiskal.Extensions.DependencyInjection/MonteFiskal.Extensions.DependencyInjection.csproj
 dotnet add reference third_party/MonteFiskal/src/dotnet/MonteFiskal.Storage.EntityFrameworkCore/MonteFiskal.Storage.EntityFrameworkCore.csproj   # durable outbox and numbering
@@ -120,6 +120,13 @@ Check the state at any time:
 
 ```sh
 wp montefiskal status
+```
+
+To hand the signed request and the response of each fiscalized invoice to another tool (for example an auditor's
+checker), write them out as files, one pair per invoice; only the exchange that received the JIKR is written (BR-X7):
+
+```sh
+wp montefiskal export-pairs /path/to/private/folder --from=2026-11-01 --to=2026-11-30
 ```
 
 The plugin issues at payment, sends through Action Scheduler, registers the daily `INITIAL` deposit of 0.00 before the

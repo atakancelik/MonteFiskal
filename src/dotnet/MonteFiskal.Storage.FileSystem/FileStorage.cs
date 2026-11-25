@@ -55,6 +55,16 @@ public static class OfflineExchange
     /// <summary>Writes the zip archives and returns their paths. Each further archive takes the next second in its name.</summary>
     public static IReadOnlyList<string> Export(IEnumerable<StoredRequest> invoices, Func<StoredRequest, string> signedRequest, string tcr, DateTimeOffset exportedAt, string timeZone, string directory)
     {
+        ArgumentNullException.ThrowIfNull(signedRequest);
+        return ExportAsync(invoices, (s, _) => Task.FromResult(signedRequest(s)), tcr, exportedAt, timeZone, directory).GetAwaiter().GetResult();
+    }
+
+    /// <summary>
+    /// As <see cref="Export"/>, with an asynchronous signer such as <c>FiscalClient.SignForExportAsync</c>, which also
+    /// archives each signed request so that the imported responses pair with it (BR-X2, BR-X7).
+    /// </summary>
+    public static async Task<IReadOnlyList<string>> ExportAsync(IEnumerable<StoredRequest> invoices, Func<StoredRequest, CancellationToken, Task<string>> signedRequest, string tcr, DateTimeOffset exportedAt, string timeZone, string directory, CancellationToken cancellationToken = default)
+    {
         ArgumentNullException.ThrowIfNull(invoices);
         ArgumentNullException.ThrowIfNull(signedRequest);
         Directory.CreateDirectory(directory);
@@ -73,7 +83,7 @@ public static class OfflineExchange
                 while (index < pending.Count)
                 {
                     var inv = pending[index];
-                    var xml = Encoding.UTF8.GetBytes(signedRequest(inv));
+                    var xml = Encoding.UTF8.GetBytes(await signedRequest(inv, cancellationToken).ConfigureAwait(false));
                     var name = OfflineNames.RequestFile(inv.IssueDateTime!, tcr, inv.Iic!);
                     var estimate = xml.Length + (2 * name.Length) + 100;
                     if (size + estimate > OfflineNames.MaxZipBytes && size > 22)

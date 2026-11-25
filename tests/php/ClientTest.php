@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace MonteFiskal\Tests;
 
 use DateTimeImmutable;
+use MonteFiskal\Archive\FileArchiveStore;
+use MonteFiskal\Archive\InvoicePairs;
 use MonteFiskal\CorrectionRequest;
 use MonteFiskal\FiscalClient;
 use MonteFiskal\FiscalProfile;
@@ -30,6 +32,8 @@ use MonteFiskal\Testing\FakeEfiEndpoint;
 use MonteFiskal\Testing\FrozenClock;
 use MonteFiskal\Testing\TestCertificateFactory;
 use MonteFiskal\TextPolicy;
+use MonteFiskal\Transport\FiscalOperation;
+use MonteFiskal\Transport\SoapEnvelope;
 use MonteFiskal\Validation\Finding;
 use MonteFiskal\Validation\FiscalValidationException;
 use MonteFiskal\Wire\ResponseParser;
@@ -64,12 +68,12 @@ final class ClientTest extends TestCase
     }
 
     /** @return array{0: FiscalClient, 1: FakeEfiEndpoint, 2: InMemoryOutboxStore, 3: FrozenClock} */
-    private static function create(?MonteFiskalOptions $options = null): array
+    private static function create(?MonteFiskalOptions $options = null, ?FileArchiveStore $archive = null): array
     {
         $clock = new FrozenClock(new DateTimeImmutable('2026-11-13T09:15:30Z'));
         $fake = new FakeEfiEndpoint($clock);
         $store = new InMemoryOutboxStore();
-        $client = new FiscalClient(self::profile(), new StaticCertificateProvider(TestCertificateFactory::create()), $fake, $store, $options, $clock);
+        $client = new FiscalClient(self::profile(), new StaticCertificateProvider(TestCertificateFactory::create()), $fake, $store, $options, $clock, archive: $archive);
         return [$client, $fake, $store, $clock];
     }
 
@@ -261,5 +265,83 @@ final class ClientTest extends TestCase
         self::assertSame(['errors' => [], 'warnings' => []], CertificateChecks::inspect($cert, '12345678', $now));
         self::assertCount(1, CertificateChecks::inspect($cert, '87654321', $now)['warnings']);
         self::assertNotEmpty(CertificateChecks::inspect($cert, '12345678', $now->modify('+2 years'))['errors']);
+    }
+
+    private static function tempDir(): string
+    {
+        $dir = sys_get_temp_dir() . '/montefiskal-' . bin2hex(random_bytes(6));
+        mkdir($dir, 0700, true);
+        return $dir;
+    }
+
+    /** @return array<string, string> */
+    private static function headerUuids(string $xml, string $attribute): array
+    {
+        preg_match('/<Header\b[^>]*\b' . $attribute . '="([^"]+)"/', $xml, $m);
+        return [$attribute => strtolower($m[1] ?? '')];
+    }
+
+    public function testPairExportTakesTheAttemptThatReceivedTheJikr_BR_X7(): void
+    {
+        $root = self::tempDir();
+        $archive = new FileArchiveStore($root . '/archive');
+        [$client, $fake, $store, $clock] = self::create(archive: $archive);
+        $issued = $client->issueInvoice(self::cardDraft());
+        $fake->failNextWithHttp(503)->failNextWithHttp(503);
+        self::assertSame(InvoiceState::Pending, $client->send($issued->id)->state);
+        $clock->advance('PT10M');
+        $client->resendPending(new ResendOptions());
+        self::assertSame(InvoiceState::Fiscalized, $store->get($issued->id)?->state);
+
+        $result = InvoicePairs::export($store, $archive, new DateTimeImmutable('2026-11-13T00:00:00Z'), new DateTimeImmutable('2026-11-14T00:00:00Z'), $root . '/out');
+        self::assertSame(1, $result->pairs());
+        self::assertSame([], $result->skipped);
+        [$requestPath, $responsePath] = $result->written;
+        self::assertStringEndsWith('_cc123cc123_' . $issued->iic . '_request.xml', $requestPath);
+        self::assertStringEndsWith('_cc123cc123_' . $issued->iic . '_response.xml', $responsePath);
+        $request = (string) file_get_contents($requestPath);
+        $response = (string) file_get_contents($responsePath);
+        self::assertStringContainsString('SubseqDelivType="NOINTERNET"', $request);
+        self::assertSame(self::headerUuids($request, 'UUID')['UUID'], ResponseParser::parse(200, $response)->requestUuid);
+        $stored = $store->get($issued->id);
+        self::assertSame($stored?->lastSignedRequest, $request, 'request bytes as archived');
+        self::assertSame($stored?->lastResponse, $response, 'response bytes as received');
+        self::assertTrue(XmlSignatureVerifier::verify($request, 'Request')->valid);
+    }
+
+    public function testOfflineExportAndImportAreArchivedAndPair_BR_X2_BR_X7(): void
+    {
+        $root = self::tempDir();
+        $archive = new FileArchiveStore($root . '/archive');
+        [$client, $fake, $store] = self::create(new MonteFiskalOptions(autoInitialDeposit: false), $archive);
+        $fake->requireInitialDeposit = false;
+        $issued = $client->issueInvoice(self::cardDraft());
+        $stored = $store->get($issued->id);
+        self::assertNotNull($stored);
+        $exported = $client->signForExport($stored);
+        self::assertSame([['kind' => 'request', 'content' => $exported]], $archive->load($issued->id));
+
+        // The Tax Administration answers the exported request; the answer comes back in a _response.zip.
+        $answer = '<?xml version="1.0" encoding="UTF-8"?>' . "\n" . $fake->send(FiscalOperation::RegisterInvoice, SoapEnvelope::wrap($exported))->body;
+        self::assertTrue($client->applyImportedResponse((string) $issued->iic, $answer));
+        self::assertSame($answer, $archive->load($issued->id)[1]['content'], 'archived as received');
+
+        $result = InvoicePairs::export($store, $archive, new DateTimeImmutable('2026-11-13T00:00:00Z'), new DateTimeImmutable('2026-11-14T00:00:00Z'), $root . '/out');
+        self::assertSame(1, $result->pairs());
+        self::assertSame($exported, file_get_contents($result->written[0]));
+        self::assertSame($answer, file_get_contents($result->written[1]));
+    }
+
+    public function testPairExportSkipsInvoicesWithoutJikr_BR_X7(): void
+    {
+        $root = self::tempDir();
+        $archive = new FileArchiveStore($root . '/archive');
+        [$client, $fake, $store] = self::create(archive: $archive);
+        $issued = $client->issueInvoice(self::cardDraft());
+        $fake->failNextWithHttp(503);
+        $client->send($issued->id);
+        $result = InvoicePairs::export($store, $archive, new DateTimeImmutable('2026-11-13T00:00:00Z'), new DateTimeImmutable('2026-11-14T00:00:00Z'), $root . '/out');
+        self::assertSame([], $result->written);
+        self::assertSame([['id' => $issued->id, 'iic' => $issued->iic, 'reason' => InvoicePairs::NOT_FISCALIZED]], $result->skipped);
     }
 }

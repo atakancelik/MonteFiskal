@@ -1,6 +1,6 @@
 # Prompts
 
-> Targets MonteFiskal 0.1.0. Each prompt starts with the common frame and ends with a verification the assistant must show.
+> Targets MonteFiskal 0.2.0. Each prompt starts with the common frame and ends with a verification the assistant must show.
 
 | Prompt | When to use |
 |---|---|

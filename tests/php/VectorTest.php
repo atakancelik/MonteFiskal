@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace MonteFiskal\Tests;
 
+use DateTimeImmutable;
+use MonteFiskal\Archive\InvoicePair;
+use MonteFiskal\Archive\InvoicePairs;
 use MonteFiskal\Archive\OfflineNames;
 use MonteFiskal\Calculation\InvoiceCalculator;
 use MonteFiskal\DateTimeFormat;
@@ -13,6 +16,9 @@ use MonteFiskal\Model\CashDeposit;
 use MonteFiskal\Model\FiscalEnvironment;
 use MonteFiskal\Model\InvoiceDraft;
 use MonteFiskal\Model\InvoiceLine;
+use MonteFiskal\Model\InvoiceState;
+use MonteFiskal\Outbox\StoredRequest;
+use MonteFiskal\Transport\FiscalOperation;
 use MonteFiskal\Model\SubsequentDelivery;
 use MonteFiskal\Model\TcrRegistration;
 use MonteFiskal\Numbering\FiscalTime;
@@ -92,6 +98,10 @@ final class VectorTest extends TestCase
     public static function offline(): array
     {
         return self::ids('offline');
+    }
+    public static function pair(): array
+    {
+        return self::ids('pair');
     }
 
     /** @return array<string, mixed> */
@@ -323,5 +333,45 @@ final class VectorTest extends TestCase
         self::assertSame($v['expected']['zip'], OfflineNames::requestZip($at, $i['tcr']));
         self::assertSame($v['expected']['responseZip'], OfflineNames::responseZip($at, $i['tcr']));
         self::assertSame(OfflineNames::MAX_ZIP_BYTES, $v['expected']['maxZipBytes']);
+    }
+
+    #[DataProvider('pair')]
+    public function testPairVector_BR_X7(string $id): void
+    {
+        $v = self::vector($id);
+        $inv = $v['input']['invoice'];
+        $stored = new StoredRequest(
+            id: '00000000-0000-4000-8000-000000000001',
+            operation: FiscalOperation::from($inv['operation']),
+            body: '',
+            issuedAt: new DateTimeImmutable($inv['issueDateTime']),
+            state: InvoiceState::from($inv['state']),
+            tcr: $inv['tcr'],
+            iic: $inv['iic'],
+            issueDateTime: $inv['issueDateTime'],
+            result: $inv['fic'],
+            lastSignedRequest: $inv['lastSignedRequest'],
+            lastResponse: $inv['lastResponse'],
+        );
+        $archive = array_map(static fn (array $x): array => ['kind' => $x['kind'], 'content' => $x['content']], $v['input']['archive']);
+        $pair = InvoicePairs::select($stored, $archive);
+        $e = $v['expected'];
+        if (isset($e['reason'])) {
+            self::assertSame($e['reason'], $pair);
+            return;
+        }
+        self::assertInstanceOf(InvoicePair::class, $pair);
+        self::assertSame($e['requestFile'], $pair->requestFile);
+        self::assertSame($e['responseFile'], $pair->responseFile);
+        self::assertSame($e['requestSource'], $pair->requestSource);
+        self::assertSame($e['responseSource'], $pair->responseSource);
+        self::assertSame(self::source($e['requestSource'], $archive, $inv['lastSignedRequest']), $pair->request);
+        self::assertSame(self::source($e['responseSource'], $archive, $inv['lastResponse']), $pair->response);
+    }
+
+    /** @param list<array{kind: string, content: string}> $archive */
+    private static function source(string $source, array $archive, ?string $last): ?string
+    {
+        return $source === 'last' ? $last : $archive[(int) substr($source, 8)]['content'];
     }
 }

@@ -5,11 +5,13 @@ declare(strict_types=1);
 namespace MonteFiskal\WooCommerce\Tests;
 
 use Automattic\WooCommerce\Utilities\OrderUtil;
+use MonteFiskal\Archive\InvoicePairs;
 use MonteFiskal\Model\InvoiceKind;
 use MonteFiskal\Model\InvoiceState;
 use MonteFiskal\Model\TypeOfInvoice;
 use MonteFiskal\Security\XmlSignatureVerifier;
 use MonteFiskal\Transport\FiscalOperation;
+use MonteFiskal\Wire\ResponseParser;
 use MonteFiskal\Wire\SchemaSet;
 use MonteFiskal\WooCommerce\Admin\ReportsPage;
 use MonteFiskal\WooCommerce\ClientFactory;
@@ -213,6 +215,32 @@ final class PluginTest extends PluginTestCase
         $after = ClientFactory::store()->get($doc->id);
         $this->assertSame(InvoiceState::Fiscalized, $after->state);
         $this->assertStringContainsString('SubseqDelivType', (string) $after->lastSignedRequest);
+    }
+
+    public function testPairExportWritesTheAttemptThatReceivedTheJikr_BR_X7(): void
+    {
+        $order = self::order('bacs', [[self::product('10.00'), 1]]);
+        $order->payment_complete();
+        self::$fake->failNextWithHttp(503);
+        self::drainQueue(1);
+        $doc = self::docs($order)[0];
+        Queue::runSend($doc->id);
+        $doc = ClientFactory::store()->get($doc->id);
+        $this->assertSame(InvoiceState::Fiscalized, $doc->state);
+
+        $dir = sys_get_temp_dir() . '/montefiskal-pairs-' . bin2hex(random_bytes(6));
+        $result = InvoicePairs::export(ClientFactory::store(), ClientFactory::archive(), $doc->issuedAt->modify('-1 minute'), $doc->issuedAt->modify('+1 minute'), $dir);
+        $mine = array_values(array_filter($result->written, static fn (string $p): bool => str_contains($p, '_' . $doc->iic . '_')));
+        $this->assertCount(2, $mine);
+        $this->assertStringEndsWith('_request.xml', $mine[0]);
+        $this->assertStringEndsWith('_response.xml', $mine[1]);
+        $request = (string) file_get_contents($mine[0]);
+        $response = (string) file_get_contents($mine[1]);
+        $this->assertStringContainsString('SubseqDelivType', $request);
+        $this->assertSame($doc->lastSignedRequest, $request);
+        $this->assertSame($doc->lastResponse, $response);
+        preg_match('/<Header\b[^>]*\bUUID="([^"]+)"/', $request, $m);
+        $this->assertSame(strtolower($m[1]), ResponseParser::parse(200, $response)->requestUuid);
     }
 
     public function testCustomerSeesNumberIkofJikrAndQr_BR_P4_BR_Q8(): void

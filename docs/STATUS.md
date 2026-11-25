@@ -1,16 +1,16 @@
 # Project status
 
-> State on 2026-11-13, version 0.1.0. What is done, what was skipped and why, what only the test service can settle,
+> State on 2026-11-25, version 0.2.0. What is done, what was skipped and why, what only the test service can settle,
 > and what the first efitest session must try. Updated with every release.
 
 ## Done
 
 | Area | State | Evidence |
 |---|---|---|
-| .NET library (7 projects) | Complete for the scope of `docs/analysis/` | 127 unit, vector and fake-service tests pass; distributed as source from GitHub (no NuGet or Packagist) |
-| PHP core | Same API and behaviour as .NET, plus `PdoOutboxStore` | 129 tests (671 assertions) pass; PSR-12 clean; PHPStan level 6 clean |
-| Parity | Both languages run the same 104 vectors with identical results | `tools/vectors/parity.py`; cross-signature: identical canonical bytes and signatures for 24 items |
-| WooCommerce plugin | Complete: single and advance flow, refunds, deposits, queue, reports, privacy, WP-CLI, block checkout, HPOS | 21 integration tests (113 assertions) pass on WordPress 7.1.4 and WooCommerce 11.3.0, with HPOS on and off; release zip installs and activates |
+| .NET library (7 projects) | Complete for the scope of `docs/analysis/` | 136 unit, vector and fake-service tests pass; distributed as source from GitHub (no NuGet or Packagist) |
+| PHP core | Same API and behaviour as .NET, plus `PdoOutboxStore` | 138 tests (715 assertions) pass; PSR-12 clean; PHPStan level 6 clean |
+| Parity | Both languages run the same 110 vectors with identical results | `tools/vectors/parity.py`; cross-signature: identical canonical bytes and signatures for 24 items |
+| WooCommerce plugin | Complete: single and advance flow, refunds, deposits, queue, reports, privacy, WP-CLI, block checkout, HPOS | 22 integration tests pass in CI (`ci-plugin`), with HPOS on and off; release zip installs and activates |
 | Translations | English source, Turkish complete | `tools/i18n/po.py check` |
 | CI | 11 workflows, actions pinned by commit SHA, read-only token by default | see `.github/workflows/` |
 | Assistant kit | All files of `ai-assistant-kit.md` §3; briefing and error table generated; every code block compiled, fake-service blocks executed | `tools/ai-kit/` (generate, lint, run_blocks, 15 self-tests) |

@@ -13,7 +13,7 @@ import re
 import sys
 from pathlib import Path
 
-KINDS = {"iic", "url", "number", "time", "amounts", "xml", "validate", "fault", "response", "offline", "qr", "report"}
+KINDS = {"iic", "url", "number", "time", "amounts", "xml", "validate", "fault", "response", "offline", "pair", "qr", "report"}
 REQUIRED = ("id", "kind", "title", "source", "status", "schemaRevision", "input", "expected")
 ALLOWED = set(REQUIRED) | {"rules", "openQuestions"}
 

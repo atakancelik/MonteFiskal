@@ -8,7 +8,7 @@
   "additionalProperties": false,
   "properties": {
     "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "description": "Equal to the file name without .json." },
-    "kind": { "enum": ["iic", "url", "number", "time", "amounts", "xml", "validate", "fault", "response", "offline", "qr", "report"] },
+    "kind": { "enum": ["iic", "url", "number", "time", "amounts", "xml", "validate", "fault", "response", "offline", "pair", "qr", "report"] },
     "title": { "type": "string", "minLength": 1 },
     "source": { "type": "string", "minLength": 1, "description": "Source ID with section (for example D-01 §4.3.2) or 'derived'." },
     "status": { "enum": ["verified", "derived", "unverified"] },

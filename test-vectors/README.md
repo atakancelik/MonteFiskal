@@ -41,6 +41,7 @@ runs a vector ID that the other does not.
 | `fault` | HTTP status, content type, body | `outcome` (`fault`, `transport`, `malformedResponse`), code, class, retryable, blocking, fault code, fault string, UUIDs |
 | `response` | HTTP status, body, `verifySignature` | result element and value (FIC, TCR code, FCDC), header values |
 | `offline` | invoices (issue time, TCR, IIC), export time | file names, archive names, size limit |
+| `pair` | `invoice` (operation, state, issue time, TCR, IIC, FIC, last request and response) and `archive` (kind and content of each archived exchange, oldest first) | `requestFile`, `responseFile`, `requestSource` and `responseSource` (`archive:<index>` or `last`), or `reason` |
 | `qr` | text, error correction level, mode | version, mask, module matrix (rows of `0`/`1`) and its SHA-256 |
 | `report` | report type, period, TCR, invoices, deposits | aggregates (counts, totals, per rate, per payment method, expected cash) |
 

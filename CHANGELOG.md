@@ -6,6 +6,29 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); ver
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-11-25
+
+Fiscal behaviour changed: no
+Schema revision: fs-v1 2026-11
+Preview: not yet verified against efitest; see docs/STATUS.md.
+
+No message sent to the Tax Administration changed, so installations keep their registered software code (BR-R7).
+
+### Added
+
+- Request and response pairs (BR-X7): `InvoicePairs` in .NET and PHP writes, for each fiscalized invoice, the signed
+  request and the response of the exchange that received the JIKR (the response's `RequestUUID` equals the request
+  header's `UUID`), byte for byte as archived, as `<yyyyMMddHHmmss>_<TCR>_<IIC>_request.xml` and `_response.xml`.
+  WooCommerce: `wp montefiskal export-pairs <dir> --from=YYYY-MM-DD --to=YYYY-MM-DD`. Suggested by the priva-fisc
+  project (issue #1).
+- .NET: `FiscalClient.SignForExportAsync` and `OfflineExchange.ExportAsync`.
+- Shared test vectors `test-vectors/pair/` (six cases) run by both languages.
+
+### Fixed
+
+- The offline exchange did not keep everything BR-X2 asks for: the request signed for the export and the response
+  loaded from a `_response.zip` were not archived. Both are now archived; the response exactly as received.
+
 ## [0.1.0] - 2026-11-13
 
 Fiscal behaviour changed: yes (first release)
@@ -26,5 +49,6 @@ Preview: not yet verified against efitest; see docs/STATUS.md.
 - In-process fake EFI service and run-time test certificates for both languages; opt-in efitest scenarios.
 - Assistant kit: `AGENTS.md`, `CLAUDE.md`, Cursor and Copilot rules, `llms.txt`, briefing, intake questions, prompts.
 
-[Unreleased]: https://github.com/atakancelik/MonteFiskal/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/atakancelik/MonteFiskal/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/atakancelik/MonteFiskal/releases/tag/v0.2.0
 [0.1.0]: https://github.com/atakancelik/MonteFiskal/releases/tag/v0.1.0

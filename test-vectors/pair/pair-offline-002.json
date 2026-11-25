@@ -1,0 +1,46 @@
+{
+  "id": "pair-offline-002",
+  "kind": "pair",
+  "title": "Offline exchange: the request signed for the export and the response loaded from the response archive",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-X7",
+    "BR-X2",
+    "BR-O11"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "invoice": {
+      "operation": "RegisterInvoice",
+      "state": "Fiscalized",
+      "issueDateTime": "2026-11-13T10:15:30+01:00",
+      "tcr": "cc123cc123",
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "fic": "a1b2c3d4-0000-4000-8000-00000000f1c0",
+      "lastSignedRequest": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"00000000-0000-4000-8000-0000000000a1\"></Header><Invoice IIC=\"0123456789ABCDEF0123456789ABCDEF\" IssueDateTime=\"2026-11-13T10:15:30+01:00\"></Invoice></RegisterInvoiceRequest>",
+      "lastResponse": "<RegisterInvoiceResponse xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Response\" Version=\"1\"><Header RequestUUID=\"00000000-0000-4000-8000-0000000000b2\" SendDateTime=\"2026-11-13T10:20:01+01:00\" UUID=\"00000000-0000-4000-8000-0000000000e5\"></Header><FIC>a1b2c3d4-0000-4000-8000-00000000f1c0</FIC></RegisterInvoiceResponse>"
+    },
+    "archive": [
+      {
+        "kind": "request",
+        "content": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"00000000-0000-4000-8000-0000000000a1\"></Header><Invoice IIC=\"0123456789ABCDEF0123456789ABCDEF\" IssueDateTime=\"2026-11-13T10:15:30+01:00\"></Invoice></RegisterInvoiceRequest>"
+      },
+      {
+        "kind": "request",
+        "content": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-14T08:00:00+01:00\" SubseqDelivType=\"NOINTERNET\" UUID=\"00000000-0000-4000-8000-0000000000b2\"></Header><Invoice IIC=\"0123456789ABCDEF0123456789ABCDEF\" IssueDateTime=\"2026-11-13T10:15:30+01:00\"></Invoice></RegisterInvoiceRequest>"
+      },
+      {
+        "kind": "response",
+        "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<RegisterInvoiceResponse xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Response\" Version=\"1\"><Header RequestUUID=\"00000000-0000-4000-8000-0000000000b2\" SendDateTime=\"2026-11-13T10:20:01+01:00\" UUID=\"00000000-0000-4000-8000-0000000000e5\"></Header><FIC>a1b2c3d4-0000-4000-8000-00000000f1c0</FIC></RegisterInvoiceResponse>"
+      }
+    ]
+  },
+  "expected": {
+    "requestFile": "20261113101530_cc123cc123_0123456789ABCDEF0123456789ABCDEF_request.xml",
+    "responseFile": "20261113101530_cc123cc123_0123456789ABCDEF0123456789ABCDEF_response.xml",
+    "requestSource": "archive:1",
+    "responseSource": "archive:2"
+  }
+}
