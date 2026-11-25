@@ -4,7 +4,7 @@
  * Plugin Name:          MonteFiskal for WooCommerce
  * Plugin URI:           https://github.com/atakancelik/MonteFiskal
  * Description:          Fiscalizes WooCommerce orders with the Montenegrin EFI service: invoices, corrective invoices for refunds, daily cash deposits, QR codes and inspector reports.
- * Version:              0.1.0
+ * Version:              0.2.0
  * Requires at least:    7.1
  * Requires PHP:         8.5
  * Requires Plugins:     woocommerce
@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 defined('ABSPATH') || exit;
 
-const MONTEFISKAL_WC_VERSION = '0.1.0';
+const MONTEFISKAL_WC_VERSION = '0.2.0';
 const MONTEFISKAL_WC_FILE = __FILE__;
 
 require_once __DIR__ . '/src/bootstrap.php';

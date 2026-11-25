@@ -21,7 +21,7 @@ builds the request, computes the IKOF, signs the XML, sends it, retries it until
 request and response. Issuing is local: an invoice gets its number and IKOF even when the service is down.
 
 > [!WARNING]
-> **Preview (0.1.0).** All unit, vector, fake-service and WordPress tests pass, but MonteFiskal has **not yet been run
+> **Preview (0.2.0).** All unit, vector, fake-service and WordPress tests pass, but MonteFiskal has **not yet been run
 > against the Tax Administration's test service (efitest)**. Try it on efitest with your own certificate before you use it
 > for real invoices, and please report what you see. See [project status](docs/STATUS.md).
 

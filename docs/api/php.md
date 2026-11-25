@@ -1,6 +1,6 @@
 # PHP API reference
 
-> MonteFiskal 0.1.0, PHP 8.5 with bcmath, dom, libxml, mbstring and openssl (curl for `CurlTransport`, zip for the
+> MonteFiskal 0.2.0, PHP 8.5 with bcmath, dom, libxml, mbstring and openssl (curl for `CurlTransport`, zip for the
 > offline exchange, pdo for `PdoOutboxStore`). Composer name `montefiskal/core`, namespace `MonteFiskal`. The API mirrors the
 > [.NET API](dotnet.md) method for method; both pass the same test vectors.
 
@@ -80,8 +80,18 @@ echo FiscalEndpoints::for(FiscalEnvironment::Test), "\n";
 | `registerTcr(TcrRegistration)`, `deregisterTcr($internalId, $validTo)` | yes | BR-R1 to BR-R4. |
 | `registerCashDeposit(CashDeposit)` | yes | `INITIAL` or `WITHDRAW` (BR-D1). |
 | `resendPending(?ResendOptions)` | yes | Resends open requests with the subsequent-delivery flag; same body and IKOF (BR-O7). Run it from cron. |
-| `signForExport`, `applyImportedResponse` | no | Offline exchange with `OfflineExchange::export()` and `::readResponses()` (BR-O11). |
+| `signForExport`, `applyImportedResponse` | no | Offline exchange with `OfflineExchange::export()` and `::readResponses()` (BR-O11). Both archive what they produce or receive (BR-X2). |
 | `recomputeIkof(IkofParameters)`, `buildVerificationUrl(...)` | no | BR-I6, BR-Q1. |
+
+## Request and response pairs
+
+`InvoicePairs::export($store, $archive, $from, $to, $directory)` writes, for every invoice issued in the interval that has a
+JIKR, the signed request and the response of the exchange that received it (BR-X7): the response's `RequestUUID`
+equals the request header's `UUID`. Files are named `<yyyyMMddHHmmss>_<TCR>_<IIC>_request.xml` and `_response.xml` and
+hold the archived text unchanged. It returns `PairExportResult` (`written`, `skipped` with `id`, `iic`, `reason`).
+`InvoicePairs::select($stored, $archive->load($id))` does the same for one invoice without writing. Nothing is sent.
+With `NullArchiveStore` only the outbox's last request and response are available. The files hold the issuer's and
+buyers' data: write them to a private folder. In WooCommerce: `wp montefiskal export-pairs <dir> --from=… --to=…`.
 
 ## Model
 

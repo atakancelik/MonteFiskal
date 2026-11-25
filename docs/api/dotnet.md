@@ -1,6 +1,6 @@
 # .NET API reference
 
-> MonteFiskal 0.1.0, .NET 10. Namespaces start with `MonteFiskal`. Every public member has XML documentation in the
+> MonteFiskal 0.2.0, .NET 10. Namespaces start with `MonteFiskal`. Every public member has XML documentation in the
 > packages; this page is the map. Rule IDs point to the [rule book](../analysis/business-rules.md).
 
 ## Projects
@@ -10,7 +10,7 @@
 | `MonteFiskal` | `FiscalClient`, `IFiscalClient`, `FiscalProfile`, `MonteFiskalOptions`, model (`MonteFiskal.Model`), `Pkcs12CertificateProvider`, `HttpFiscalTransport`, `FiscalEndpoints`, `InMemoryOutboxStore`, `ErrorCatalog` |
 | `MonteFiskal.Extensions.DependencyInjection` | `AddMonteFiskal(...)`, `MonteFiskalSettings`, `ResendBackgroundService` |
 | `MonteFiskal.Storage.EntityFrameworkCore` | `EfOutboxStore`, `MonteFiskalDbContext`, `MonteFiskalModel.Configure(ModelBuilder)` |
-| `MonteFiskal.Storage.FileSystem` | `FileArchiveStore`, `OfflineExchange` |
+| `MonteFiskal.Storage.FileSystem` | `FileArchiveStore`, `OfflineExchange` (`Export`, `ExportAsync`, `ReadResponses`) |
 | `MonteFiskal.Rendering` | `QrCode`, `QrImages`, `Receipt`, `HtmlReceipt`, `EscPosReceipt` |
 | `MonteFiskal.Reports` | `InspectorReports`, `ReportInvoice`, `TurnoverReport` |
 | `MonteFiskal.Testing` | `FakeEfiEndpoint`, `TestCertificateFactory`, `VectorLoader` |
@@ -87,7 +87,7 @@ registered another `IOutboxStore`, and `ResendBackgroundService` (switch off wit
 | `RegisterTcrAsync(TcrRegistration)`, `DeregisterTcrAsync(...)` | yes | TCR registration (BR-R1 to BR-R4). |
 | `RegisterCashDepositAsync(CashDeposit)` | yes | `INITIAL` or `WITHDRAW` (BR-D1). |
 | `ResendPendingAsync(ResendOptions)` | yes | Resends open requests oldest first with `SubseqDelivType` set; same body and IKOF (BR-O7). |
-| `SignForExport`, `ApplyImportedResponseAsync` | no | Offline exchange (BR-O11). |
+| `SignForExportAsync` (`SignForExport` without archiving), `ApplyImportedResponseAsync` | no | Offline exchange (BR-O11); the async forms archive the exported request and the imported response (BR-X2). Use `OfflineExchange.ExportAsync(pending, client.SignForExportAsync, …)`. |
 | `RecomputeIkof(IkofParameters)`, `BuildVerificationUrl(...)` | no | Check an IKOF or rebuild the link (BR-I6, BR-Q1). |
 
 `InvoiceState`: `Issued` (no attempt yet), `Pending` (retry scheduled), `Overdue` (past the delivery deadline),
@@ -120,6 +120,13 @@ Console.WriteLine(store.GetType().Name);
 Create the tables with your migrations; to add them to your own context, call `MonteFiskalModel.Configure(modelBuilder)`.
 Ordinals are allocated with optimistic concurrency and retries, so they stay gap-free under load (BR-N5). Records are
 never deleted by the library (BR-X1). `FileArchiveStore(root)` keeps every signed request and response as files.
+
+`InvoicePairs.ExportAsync(store, archive, from, to, directory)` (namespace `MonteFiskal.Archive`) writes, for every invoice
+issued in the interval that has a JIKR, the signed request and the response of the exchange that received it (BR-X7):
+the response's `RequestUUID` equals the request header's `UUID`. Files are named
+`<yyyyMMddHHmmss>_<TCR>_<IIC>_request.xml` and `_response.xml` and hold the archived text unchanged. It returns
+`PairExportResult` (`Written`, `Skipped` with `Id`, `Iic`, `Reason`); `InvoicePairs.Select` does the same for one invoice
+without writing. Nothing is sent. The files hold the issuer's and buyers' data: write them to a private folder.
 
 ## Rendering and reports
 

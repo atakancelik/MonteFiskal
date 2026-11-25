@@ -6,6 +6,7 @@ namespace MonteFiskal\WooCommerce\Cli;
 
 use DateTimeImmutable;
 use DateTimeZone;
+use MonteFiskal\Archive\InvoicePairs;
 use MonteFiskal\Archive\OfflineExchange;
 use MonteFiskal\Model\CashDeposit;
 use MonteFiskal\Model\CashDepositOperation;
@@ -30,6 +31,7 @@ defined('ABSPATH') || exit;
  *     wp montefiskal resend
  *     wp montefiskal deposit --amount=0
  *     wp montefiskal report daily --from=2026-11-13
+ *     wp montefiskal export-pairs ~/fiscal-pairs --from=2026-11-01 --to=2026-11-30
  */
 final class Command
 {
@@ -179,5 +181,56 @@ final class Command
             }
         }
         WP_CLI::success("Applied {$n} responses.");
+    }
+
+    /**
+     * Writes the signed request and the response of every fiscalized invoice (BR-X7): the exchange that received the
+     * JIKR, byte for byte as archived, as <yyyyMMddHHmmss>_<TCR>_<IIC>_request.xml and _response.xml. Nothing is sent.
+     * The files contain the shop's and buyers' data: write them to a private folder.
+     *
+     * <directory>
+     * : Target folder, created if missing.
+     *
+     * [--from=<date>]
+     * : First issue date, YYYY-MM-DD in the shop's time zone. Default today.
+     *
+     * [--to=<date>]
+     * : Last issue date, YYYY-MM-DD. Default the from date.
+     *
+     * ## EXAMPLES
+     *
+     *     wp montefiskal export-pairs ~/fiscal-pairs --from=2026-11-01 --to=2026-11-30
+     *
+     * @subcommand export-pairs
+     */
+    public function exportPairs(array $args, array $assoc): void
+    {
+        $profile = Settings::profile();
+        $zone = new DateTimeZone($profile->timeZone);
+        $from = (string) ($assoc['from'] ?? (new DateTimeImmutable('now', $zone))->format('Y-m-d'));
+        $to = (string) ($assoc['to'] ?? $from);
+        foreach ([$from, $to] as $d) {
+            if (!preg_match('/^\d{4}-\d{2}-\d{2}$/', $d)) {
+                WP_CLI::error('Dates are YYYY-MM-DD.');
+            }
+        }
+        $result = InvoicePairs::export(
+            ClientFactory::store(),
+            ClientFactory::archive(),
+            new DateTimeImmutable($from . ' 00:00:00', $zone),
+            new DateTimeImmutable($to . ' 23:59:59', $zone),
+            $args[0],
+        );
+        $missing = array_values(array_filter($result->skipped, static fn (array $s): bool => $s['reason'] !== InvoicePairs::NOT_FISCALIZED));
+        foreach ($missing as $s) {
+            WP_CLI::warning(sprintf('%s (%s): %s', (string) $s['iic'], $s['id'], $s['reason']));
+        }
+        WP_CLI::success(sprintf(
+            'wrote %d pairs to %s; %d invoices not fiscalized; %d without a matching pair',
+            $result->pairs(),
+            $args[0],
+            count($result->skipped) - count($missing),
+            count($missing),
+        ));
     }
 }

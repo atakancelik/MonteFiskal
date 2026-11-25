@@ -1,7 +1,11 @@
 using Microsoft.Extensions.Time.Testing;
+using System.Text.RegularExpressions;
+using MonteFiskal.Archive;
 using MonteFiskal.Model;
 using MonteFiskal.Outbox;
 using MonteFiskal.Security;
+using MonteFiskal.Storage.FileSystem;
+using MonteFiskal.Transport;
 using MonteFiskal.Testing;
 using MonteFiskal.Validation;
 using MonteFiskal.Wire;
@@ -30,12 +34,12 @@ public sealed class ClientTests
         Payments = [new Payment { Method = PaymentMethod.Card }],
     };
 
-    private static (FiscalClient Client, FakeEfiEndpoint Fake, InMemoryOutboxStore Store, FakeTimeProvider Clock) Create(MonteFiskalOptions? options = null)
+    private static (FiscalClient Client, FakeEfiEndpoint Fake, InMemoryOutboxStore Store, FakeTimeProvider Clock) Create(MonteFiskalOptions? options = null, IArchiveStore? archive = null)
     {
         var clock = new FakeTimeProvider(new DateTimeOffset(2026, 11, 13, 9, 15, 30, TimeSpan.Zero));
         var fake = new FakeEfiEndpoint(clock);
         var store = new InMemoryOutboxStore();
-        var client = new FiscalClient(Profile, new StaticCertificateProvider(TestCertificateFactory.Create()), fake, store, options, clock);
+        var client = new FiscalClient(Profile, new StaticCertificateProvider(TestCertificateFactory.Create()), fake, store, options, clock, archive: archive);
         return (client, fake, store, clock);
     }
 
@@ -248,5 +252,79 @@ public sealed class ClientTests
         var other = CertificateChecks.Inspect(cert, "87654321", DateTimeOffset.UtcNow);
         Assert.Single(other.Warnings);
         Assert.NotEmpty(CertificateChecks.Inspect(cert, "12345678", DateTimeOffset.UtcNow.AddYears(2)).Errors);
+    }
+
+    private static readonly DateTimeOffset Day = new(2026, 11, 13, 0, 0, 0, TimeSpan.Zero);
+
+    private static string TempDir() => Directory.CreateTempSubdirectory("montefiskal-").FullName;
+
+    [Fact]
+    public async Task Pair_export_takes_the_attempt_that_received_the_JIKR_BR_X7()
+    {
+        var ct = TestContext.Current.CancellationToken;
+        var root = TempDir();
+        var archive = new FileArchiveStore(Path.Combine(root, "archive"));
+        var (client, fake, store, clock) = Create(archive: archive);
+        var issued = await client.IssueInvoiceAsync(CardDraft(), ct);
+        fake.FailNextWithHttp(503).FailNextWithHttp(503);
+        Assert.Equal(InvoiceState.Pending, (await client.SendAsync(issued.Id, ct)).State);
+        clock.Advance(TimeSpan.FromMinutes(10));
+        await client.ResendPendingAsync(new ResendOptions(), ct);
+        var stored = await store.GetAsync(issued.Id, ct);
+        Assert.Equal(InvoiceState.Fiscalized, stored!.State);
+
+        var result = await InvoicePairs.ExportAsync(store, archive, Day, Day.AddDays(1), Path.Combine(root, "out"), ct);
+        Assert.Equal(1, result.Pairs);
+        Assert.Empty(result.Skipped);
+        Assert.EndsWith("_cc123cc123_" + issued.Iic + "_request.xml", result.Written[0], StringComparison.Ordinal);
+        Assert.EndsWith("_cc123cc123_" + issued.Iic + "_response.xml", result.Written[1], StringComparison.Ordinal);
+        var request = await File.ReadAllTextAsync(result.Written[0], ct);
+        var response = await File.ReadAllTextAsync(result.Written[1], ct);
+        Assert.Contains("SubseqDelivType=\"NOINTERNET\"", request, StringComparison.Ordinal);
+        var uuid = Regex.Match(request, "<Header\\b[^>]*\\bUUID=\"([^\"]+)\"").Groups[1].Value;
+        Assert.Equal(Guid.Parse(uuid), ResponseParser.Parse(200, response).RequestUuid);
+        Assert.Equal(stored.LastSignedRequest, request);
+        Assert.Equal(stored.LastResponse, response);
+        Assert.True(XmlSignatureVerifier.Verify(request, "Request").Valid);
+    }
+
+    [Fact]
+    public async Task Offline_export_and_import_are_archived_and_pair_BR_X2_BR_X7()
+    {
+        var ct = TestContext.Current.CancellationToken;
+        var root = TempDir();
+        var archive = new FileArchiveStore(Path.Combine(root, "archive"));
+        var (client, fake, store, _) = Create(new MonteFiskalOptions { AutoInitialDeposit = false }, archive);
+        fake.RequireInitialDeposit = false;
+        var issued = await client.IssueInvoiceAsync(CardDraft(), ct);
+        var stored = await store.GetAsync(issued.Id, ct);
+        var exported = await client.SignForExportAsync(stored!, cancellationToken: ct);
+        var kept = await archive.LoadAsync(issued.Id, ct);
+        Assert.Equal([("request", exported)], kept);
+
+        // The Tax Administration answers the exported request; the answer comes back in a _response.zip.
+        var answer = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" + (await ((IFiscalTransport)fake).SendAsync(FiscalOperation.RegisterInvoice, SoapEnvelope.Wrap(exported), ct)).Body;
+        Assert.True(await client.ApplyImportedResponseAsync(issued.Iic, answer, ct));
+        Assert.Equal(answer, (await archive.LoadAsync(issued.Id, ct))[1].Content);
+
+        var result = await InvoicePairs.ExportAsync(store, archive, Day, Day.AddDays(1), Path.Combine(root, "out"), ct);
+        Assert.Equal(1, result.Pairs);
+        Assert.Equal(exported, await File.ReadAllTextAsync(result.Written[0], ct));
+        Assert.Equal(answer, await File.ReadAllTextAsync(result.Written[1], ct));
+    }
+
+    [Fact]
+    public async Task Pair_export_skips_invoices_without_JIKR_BR_X7()
+    {
+        var ct = TestContext.Current.CancellationToken;
+        var root = TempDir();
+        var archive = new FileArchiveStore(Path.Combine(root, "archive"));
+        var (client, fake, store, _) = Create(archive: archive);
+        var issued = await client.IssueInvoiceAsync(CardDraft(), ct);
+        fake.FailNextWithHttp(503);
+        await client.SendAsync(issued.Id, ct);
+        var result = await InvoicePairs.ExportAsync(store, archive, Day, Day.AddDays(1), Path.Combine(root, "out"), ct);
+        Assert.Empty(result.Written);
+        Assert.Equal([new PairSkip(issued.Id, issued.Iic, InvoicePairs.NotFiscalized)], result.Skipped);
     }
 }

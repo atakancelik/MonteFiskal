@@ -15,7 +15,7 @@
   </PropertyGroup>
 
   <PropertyGroup Label="Package">
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
     <Authors>Deveng Group DOO and MonteFiskal contributors</Authors>
     <Company>Deveng Group DOO</Company>
     <Copyright>Copyright (c) 2026 Deveng Group DOO and MonteFiskal contributors</Copyright>

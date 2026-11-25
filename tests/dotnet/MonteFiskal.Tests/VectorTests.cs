@@ -37,6 +37,7 @@ public sealed class VectorTests
     public static TheoryData<string> Fault => Ids("fault");
     public static TheoryData<string> Response => Ids("response");
     public static TheoryData<string> Offline => Ids("offline");
+    public static TheoryData<string> Pair => Ids("pair");
 
     internal static TestVector Run(string id)
     {
@@ -316,5 +317,43 @@ public sealed class VectorTests
         Assert.Equal(v.Expected.GetProperty("zip").GetString(), OfflineNames.RequestZip(at, i.GetProperty("tcr").GetString()!));
         Assert.Equal(v.Expected.GetProperty("responseZip").GetString(), OfflineNames.ResponseZip(at, i.GetProperty("tcr").GetString()!));
         Assert.Equal(OfflineNames.MaxZipBytes, v.Expected.GetProperty("maxZipBytes").GetInt64());
+    }
+
+    [Theory, MemberData(nameof(Pair))]
+    public void Pair_vector_BR_X7(string id)
+    {
+        var v = Run(id);
+        var inv = v.Input.GetProperty("invoice");
+        string? Opt(string name) => inv.GetProperty(name).ValueKind == JsonValueKind.Null ? null : inv.GetProperty(name).GetString();
+        var stored = new MonteFiskal.Outbox.StoredRequest
+        {
+            Operation = Enum.Parse<MonteFiskal.Transport.FiscalOperation>(inv.GetProperty("operation").GetString()!),
+            Body = "",
+            State = Enum.Parse<InvoiceState>(inv.GetProperty("state").GetString()!),
+            Tcr = inv.GetProperty("tcr").GetString()!,
+            Iic = inv.GetProperty("iic").GetString(),
+            IssueDateTime = inv.GetProperty("issueDateTime").GetString(),
+            IssuedAt = OfflineNames.ParseWire(inv.GetProperty("issueDateTime").GetString()!),
+            Result = Opt("fic"),
+            LastSignedRequest = Opt("lastSignedRequest"),
+            LastResponse = Opt("lastResponse"),
+        };
+        var archive = v.Input.GetProperty("archive").EnumerateArray().Select(x => (x.GetProperty("kind").GetString()!, x.GetProperty("content").GetString()!)).ToList();
+        var (pair, reason) = InvoicePairs.Select(stored, archive);
+        var e = v.Expected;
+        if (e.TryGetProperty("reason", out var expectedReason))
+        {
+            Assert.Null(pair);
+            Assert.Equal(expectedReason.GetString(), reason);
+            return;
+        }
+        Assert.NotNull(pair);
+        Assert.Equal(e.GetProperty("requestFile").GetString(), pair.RequestFile);
+        Assert.Equal(e.GetProperty("responseFile").GetString(), pair.ResponseFile);
+        Assert.Equal(e.GetProperty("requestSource").GetString(), pair.RequestSource);
+        Assert.Equal(e.GetProperty("responseSource").GetString(), pair.ResponseSource);
+        string? Source(string s, string? last) => s == "last" ? last : archive[int.Parse(s[8..], CultureInfo.InvariantCulture)].Item2;
+        Assert.Equal(Source(pair.RequestSource, Opt("lastSignedRequest")), pair.Request);
+        Assert.Equal(Source(pair.ResponseSource, Opt("lastResponse")), pair.Response);
     }
 }

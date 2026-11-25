@@ -1,0 +1,39 @@
+{
+  "id": "pair-mismatch-004",
+  "kind": "pair",
+  "title": "The response names a request that is not kept: no pair",
+  "source": "derived",
+  "status": "derived",
+  "rules": [
+    "BR-X7",
+    "BR-X2",
+    "BR-O11"
+  ],
+  "openQuestions": [],
+  "schemaRevision": "242c657173ec62f2193447ebc52e3ef26fc4eaecaf7e335c9b9631935591243a",
+  "input": {
+    "invoice": {
+      "operation": "RegisterInvoice",
+      "state": "Fiscalized",
+      "issueDateTime": "2026-11-13T10:15:30+01:00",
+      "tcr": "cc123cc123",
+      "iic": "0123456789ABCDEF0123456789ABCDEF",
+      "fic": "a1b2c3d4-0000-4000-8000-00000000f1c0",
+      "lastSignedRequest": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"00000000-0000-4000-8000-0000000000a1\"></Header><Invoice IIC=\"0123456789ABCDEF0123456789ABCDEF\" IssueDateTime=\"2026-11-13T10:15:30+01:00\"></Invoice></RegisterInvoiceRequest>",
+      "lastResponse": "<env:Envelope xmlns:env=\"http://schemas.xmlsoap.org/soap/envelope/\"><env:Body><RegisterInvoiceResponse xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Response\" Version=\"1\"><Header RequestUUID=\"00000000-0000-4000-8000-0000000000d4\" SendDateTime=\"2026-11-13T10:20:01+01:00\" UUID=\"00000000-0000-4000-8000-0000000000e5\"></Header><FIC>a1b2c3d4-0000-4000-8000-00000000f1c0</FIC></RegisterInvoiceResponse></env:Body></env:Envelope>"
+    },
+    "archive": [
+      {
+        "kind": "request",
+        "content": "<RegisterInvoiceRequest xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Request\" Version=\"1\"><Header SendDateTime=\"2026-11-13T10:15:31+01:00\" UUID=\"00000000-0000-4000-8000-0000000000a1\"></Header><Invoice IIC=\"0123456789ABCDEF0123456789ABCDEF\" IssueDateTime=\"2026-11-13T10:15:30+01:00\"></Invoice></RegisterInvoiceRequest>"
+      },
+      {
+        "kind": "response",
+        "content": "<env:Envelope xmlns:env=\"http://schemas.xmlsoap.org/soap/envelope/\"><env:Body><RegisterInvoiceResponse xmlns=\"https://efi.tax.gov.me/fs/schema\" Id=\"Response\" Version=\"1\"><Header RequestUUID=\"00000000-0000-4000-8000-0000000000d4\" SendDateTime=\"2026-11-13T10:20:01+01:00\" UUID=\"00000000-0000-4000-8000-0000000000e5\"></Header><FIC>a1b2c3d4-0000-4000-8000-00000000f1c0</FIC></RegisterInvoiceResponse></env:Body></env:Envelope>"
+      }
+    ]
+  },
+  "expected": {
+    "reason": "no-matching-request"
+  }
+}

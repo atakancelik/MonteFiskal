@@ -479,22 +479,27 @@ final class FiscalClient
             FiscalOperation::RegisterCashDeposit => (string) RequestBuilder::root('RegisterCashDepositRequest', RequestBuilder::header($header, $tz, $this->options), XNode::fromRaw($stored->body)),
             default => throw new \InvalidArgumentException('Only invoices and cash deposits are exported.'),
         };
-        return XmlSigner::sign($unsigned, $this->certificates->certificate());
+        $signed = XmlSigner::sign($unsigned, $this->certificates->certificate());
+        // BR-X2, BR-X7: the request handed over offline is archived like one sent online, so that its response pairs with it.
+        $this->archive->save($stored->id, 'request', $signed);
+        return $signed;
     }
 
-    /** Records a JIKR received through the offline import (BR-O11). */
+    /** Records a JIKR received through the offline import (BR-O11); the response is archived as received (BR-X2). */
     public function applyImportedResponse(string $iic, string $responseXml): bool
     {
         $stored = $this->store->findByIic($iic);
         if ($stored === null) {
             return false;
         }
+        $received = $responseXml;
         if (str_starts_with($responseXml, '<?xml')) {
             $responseXml = ltrim(substr($responseXml, strpos($responseXml, '?>') + 2));
         }
         $body = str_contains($responseXml, ':Envelope') ? $responseXml
             : '<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/"><s:Body>' . $responseXml . '</s:Body></s:Envelope>';
         $parsed = ResponseParser::parse(200, $body, $this->options->responseSignature);
+        $this->archive->save($stored->id, 'response', $received);
         if ($parsed->outcome !== ExchangeOutcome::Success) {
             return false;
         }

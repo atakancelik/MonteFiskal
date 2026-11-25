@@ -5,7 +5,7 @@ description: Integrate or troubleshoot MonteFiskal (Montenegro EFI fiscalization
 
 # MonteFiskal integration
 
-Targets MonteFiskal 0.1.0. Source: https://github.com/atakancelik/MonteFiskal/tree/main/docs/ai
+Targets MonteFiskal 0.2.0. Source: https://github.com/atakancelik/MonteFiskal/tree/main/docs/ai
 
 1. Read the briefing: https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/ai/context.md
 2. Ask the intake questions from https://raw.githubusercontent.com/atakancelik/MonteFiskal/main/docs/ai/questions.md,

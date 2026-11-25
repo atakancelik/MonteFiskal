@@ -4,7 +4,7 @@ Tags: fiscalization, montenegro, efi, invoice, woocommerce
 Requires at least: 7.1
 Tested up to: 7.1
 Requires PHP: 8.5
-Stable tag: 0.1.0
+Stable tag: 0.2.0
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,11 @@ The invoice is issued locally with its IKOF and printed without JIKR; it is sent
 No. Fiscal records must be kept at least five years after the end of the year. A separate tool on the status page deletes them after a warning.
 
 == Changelog ==
+
+= 0.2.0 =
+* New: `wp montefiskal export-pairs` writes the signed request and the response of each fiscalized invoice (BR-X7).
+* Fix: the offline export and import now keep the exported request and the imported response in the archive (BR-X2).
+* Fiscal behaviour changed: no.
 
 = 0.1.0 =
 * First release. Fiscal behaviour changed: yes (new).

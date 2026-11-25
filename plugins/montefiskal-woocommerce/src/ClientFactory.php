@@ -40,8 +40,6 @@ final class ClientFactory
         $endpoint = FiscalEndpoints::for($profile->environment);
         /** @var FiscalTransport $transport */
         $transport = apply_filters('montefiskal_transport', null, $profile->environment) ?? new CurlTransport($endpoint, $options);
-        $archiveDir = Settings::archiveDirectory();
-        self::protectDirectory($archiveDir);
         return self::$client = new FiscalClient(
             $profile,
             self::certificates(),
@@ -51,8 +49,16 @@ final class ClientFactory
             apply_filters('montefiskal_clock', null),
             null,
             null,
-            new FileArchiveStore($archiveDir),
+            self::archive(),
         );
+    }
+
+    /** The archive of signed requests and responses (BR-X2), in the folder from the settings. */
+    public static function archive(): FileArchiveStore
+    {
+        $archiveDir = Settings::archiveDirectory();
+        self::protectDirectory($archiveDir);
+        return new FileArchiveStore($archiveDir);
     }
 
     /** Forgets the cached client, for example after the settings changed. */

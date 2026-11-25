@@ -52,7 +52,8 @@ jobs:
           path: dist
       - uses: softprops/action-gh-release@8a0cd651e5b2365bd640854a3fa5dfc70e4875f3 # v3.0.4
         with:
-          draft: true
+          draft: false
+          prerelease: ${{ startsWith(github.ref_name, 'v0.') }}
           files: dist/*
           generate_release_notes: false
           body: |

@@ -531,7 +531,8 @@ public sealed class FiscalClient : IFiscalClient
 
     /// <summary>
     /// Signs a stored request for the offline export (BR-O11): the body is unchanged, the header gets a new UUID,
-    /// the current time and <paramref name="reason"/> as <c>SubseqDelivType</c>.
+    /// the current time and <paramref name="reason"/> as <c>SubseqDelivType</c>. Does not archive the result; use
+    /// <see cref="SignForExportAsync"/> so that the pair export (BR-X7) finds the request.
     /// </summary>
     public string SignForExport(StoredRequest stored, SubsequentDelivery reason = SubsequentDelivery.NoInternet)
     {
@@ -548,7 +549,18 @@ public sealed class FiscalClient : IFiscalClient
         return XmlSigner.Sign(unsigned, key, cert);
     }
 
-    /// <summary>Records a JIKR received through the offline import (BR-O11).</summary>
+    /// <summary>
+    /// Signs a stored request for the offline export like <see cref="SignForExport"/> and archives the signed request,
+    /// as for one sent online, so that its imported response pairs with it (BR-X2, BR-X7). The PHP <c>signForExport</c> does the same.
+    /// </summary>
+    public async Task<string> SignForExportAsync(StoredRequest stored, SubsequentDelivery reason = SubsequentDelivery.NoInternet, CancellationToken cancellationToken = default)
+    {
+        var signed = SignForExport(stored, reason);
+        await _archive.SaveAsync(stored.Id, "request", signed, cancellationToken).ConfigureAwait(false);
+        return signed;
+    }
+
+    /// <summary>Records a JIKR received through the offline import (BR-O11); the response is archived as received (BR-X2).</summary>
     public async Task<bool> ApplyImportedResponseAsync(string iic, string responseXml, CancellationToken cancellationToken = default)
     {
         var stored = await _store.FindByIicAsync(iic, cancellationToken).ConfigureAwait(false);
@@ -557,6 +569,7 @@ public sealed class FiscalClient : IFiscalClient
             return false;
         }
         ArgumentNullException.ThrowIfNull(responseXml);
+        var received = responseXml;
         if (responseXml.StartsWith("<?xml", StringComparison.Ordinal))
         {
             responseXml = responseXml[(responseXml.IndexOf("?>", StringComparison.Ordinal) + 2)..].TrimStart();
@@ -564,6 +577,7 @@ public sealed class FiscalClient : IFiscalClient
         var body = responseXml.Contains(":Envelope", StringComparison.Ordinal) ? responseXml
             : "<s:Envelope xmlns:s=\"http://schemas.xmlsoap.org/soap/envelope/\"><s:Body>" + responseXml + "</s:Body></s:Envelope>";
         var parsed = ResponseParser.Parse(200, body, _options.ResponseSignature);
+        await _archive.SaveAsync(stored.Id, "response", received, cancellationToken).ConfigureAwait(false);
         if (parsed.Outcome != ExchangeOutcome.Success)
         {
             return false;

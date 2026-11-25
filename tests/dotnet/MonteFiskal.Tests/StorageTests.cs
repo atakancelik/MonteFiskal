@@ -108,8 +108,9 @@ public sealed class StorageTests : IDisposable
         }
         Assert.Equal(InvoiceState.Fiscalized, (await store.GetAsync(a.Id, TestContext.Current.CancellationToken))!.State);
         Assert.Equal(InvoiceState.Fiscalized, (await store.GetAsync(b.Id, TestContext.Current.CancellationToken))!.State);
+        // A fiscalized invoice is not sent again; the archive holds only the imported response (BR-X2).
         await client.SendAsync(a.Id, TestContext.Current.CancellationToken);
-        Assert.Empty(await archive.LoadAsync(a.Id, TestContext.Current.CancellationToken));
+        Assert.Equal(["response"], (await archive.LoadAsync(a.Id, TestContext.Current.CancellationToken)).Select(x => x.Kind));
     }
 
     [Fact]
